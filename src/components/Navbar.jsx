@@ -4,16 +4,18 @@ import { Input } from "./ui/input";
 
 const Navbar = () => {
   return (
-    <div className="flex gap-28 mt-4 justify-start items-center  text-base text-center whitespace-nowrap max-md:flex-wrap">
-      <Input
-        className="w-80 justify-between items-center px-8 py-4 rounded-3xl shadow-2xl text-black text-opacity-50 max-md:px-5 dark:text-gray-100 dark:border-gray-400 "
-        type="text"
-        name="regNumber"
-        placeholder="Search by Registration Number"
-        // value={}
-        // onChange={}
-      />
-      <div className="flex gap-5 justify-between">
+    <div className=" w-full flex justify-between  gap-28 mt-4 items-center text-base text-center whitespace-nowrap max-md:flex-wrap">
+      <div className="flex-3">
+        <Input
+          className="w-80 justify-between items-center px-8 py-4 rounded-3xl shadow-2xl text-black text-opacity-50 max-md:px-5 dark:text-gray-100 dark:border-gray-400 "
+          type="text"
+          name="regNumber"
+          placeholder="Search by Registration Number"
+          // value={}
+          // onChange={}
+        />
+      </div>
+      <div className="flex gap-5 justify-between left-0">
         <div className="flex  ">
           <img
             loading="lazy"
