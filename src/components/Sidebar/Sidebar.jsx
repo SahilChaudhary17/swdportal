@@ -1,23 +1,29 @@
+"use client"
 import React, { useState } from 'react';
 import './sidebar.css';
-
 import { IconContext } from 'react-icons';
 import { MdSpaceDashboard } from "react-icons/md";
 import { MdLibraryBooks } from "react-icons/md";
 import { HiPencil } from "react-icons/hi2";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
 import { RiContactsBook2Fill } from "react-icons/ri";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaGraduationCap, FaSignOutAlt } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
 
-import GraduationCap from '../../images/Graduation Cap.svg'
 
-function Sidebar() {
-  const[active, setActive] = useState('Dashboard')
-
+function Sidebar({ active, setActive}) {
+  const router = useRouter();
+  // const [active, setActive] = useState('Dashboard');
+  
+  const handleSignOut = () => {
+    localStorage.removeItem("complaintToken");
+    router.push('/login');
+  };
   return (
     <div className='sidebar'>
       <div className='graduation-cap-container'>
-        <img src={GraduationCap} alt="Graduation Cap"/>
+        {/* <img src={GraduationCap} alt="Graduation Cap"/> */}
+        <FaGraduationCap  className='h-[8vw] w-[8vw] text-white' />
       </div>
       <div className='menu'>
 
@@ -48,7 +54,7 @@ function Sidebar() {
           <IconContext.Provider value={{ size: '24px' }}>
             <HiPencil />
           </IconContext.Provider>
-          <p>Add / Modify</p>
+          <p >Add / Modify</p>
         </button>
 
         <button 
@@ -68,12 +74,12 @@ function Sidebar() {
           <IconContext.Provider value={{ size: '24px' }}>
             <RiContactsBook2Fill />
           </IconContext.Provider>
-          <p>User Info</p>
+          <p >User Info</p>
         </button>
 
       </div>
 
-      <button className= 'menu-item signout' onClick={() => console.log('SignOut')}>
+      <button className= 'menu-item signout' onClick={handleSignOut}>
         <IconContext.Provider value={{ size: '22px' }}>
           <FaSignOutAlt />
         </IconContext.Provider>  

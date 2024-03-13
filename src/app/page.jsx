@@ -1,16 +1,20 @@
-import CreateComplaint from "@/components/CreateComplaint";
-import Navbar from "@/components/Navbar";
-import Test from "@/components/Test";
+"use client"
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation"; 
+import Dashboard from "@/components/Dashboard";
 
 export default function Home() {
-  return (
-    <div className="flex">
-      <div className="w-1/5 px-12 my-4  rounded-2xl bg-violet-500 ml-8 h-[695px]">
+  const router = useRouter();
 
-      </div>
-      <div className="w-4/5 px-12">
-        <Navbar />
-      </div>
+  useEffect(() => {
+    const token = localStorage.getItem("complaintToken");
+    if (!token) {
+      router.push("/login");
+    }
+  }, []); 
+  return (
+    <div>
+      <Dashboard/>
     </div>
   );
 }

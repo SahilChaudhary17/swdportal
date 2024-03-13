@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
@@ -14,7 +14,7 @@ const LoginForm = () => {
 
   const [formData, setFormData] = useState({
     empId: "",
-    password: ""
+    password: "",
   });
   useEffect(() => {
     const token = localStorage.getItem("complaintToken");
@@ -26,7 +26,7 @@ const LoginForm = () => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -40,76 +40,77 @@ const LoginForm = () => {
       const response = await fetch("http://localhost:5000/auth/login", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
       const data = await response.json();
-      console.log(data)
       if (!response.ok) {
-        throw new Error(`Login failed : ${data.message}` );
+        throw new Error(`Login failed : ${data.message}`);
       }
       localStorage.setItem("complaintToken", data.token);
       router.push("/");
     } catch (error) {
-        setError(error.message);
+      setError(error.message);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="gap-4 mt-6 flex flex-col border p-12 rounded-3xl shadow-xl mx-7"
-    >
-      {error && (
-        <p className="text-center bg-red-300 py-4 mb-6 rounded">{error}</p>
-      )}
-      <div className="relative flex items-center rounded-2xl border border-violet-500">
-        <Input
-          className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
-          type="tel"
-          name="empId"
-          placeholder="Employment Number"
-          value={formData.empId}
-          onChange={handleChange}
-        />
-        <User className="absolute right-6 " size={20} />
-      </div>
-      <div className="relative flex items-center rounded-2xl border border-violet-500">
-        <Input
-          className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
-          type={showPassword ? "text" : "password"}
-          name="password"
-          placeholder="********"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        {showPassword ? (
-          <Eye
-            className="absolute right-6 cursor-pointer"
-            size={20}
-            onClick={handleTogglePassword}
-          />
-        ) : (
-          <EyeOff
-            className="absolute right-6 cursor-pointer"
-            size={20}
-            onClick={handleTogglePassword}
-          />
+    <div className="flex justify-center items-center h-screen">
+      <form
+        onSubmit={handleSubmit}
+        className="gap-4 flex flex-col max-w-md border rounded-3xl shadow-2xl p-12 "
+      >
+        {error && (
+          <p className="text-center bg-red-300 py-4 mb-6 rounded">{error}</p>
         )}
-      </div>
-      <div className="flex justify-between items-center">
-        <Button
-          type="submit"
-          className="flex items-center gap-x-1 max-w-[250px] bg-gradient-to-r from-violet-500 to-violet-200 rounded-3xl shadow hover:bg-gradient-to-l from-violet-600 to-violet-100 "
-        >
-          Login
-          <ArrowRightIcon size={20} />
-        </Button>
+        <div className="relative flex items-center rounded-2xl border border-violet-500">
+          <Input
+            className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
+            type="tel"
+            name="empId"
+            placeholder="Employment Number"
+            value={formData.empId}
+            onChange={handleChange}
+          />
+          <User className="absolute right-6 " size={20} />
+        </div>
+        <div className="relative flex items-center rounded-2xl border border-violet-500">
+          <Input
+            className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="********"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          {showPassword ? (
+            <Eye
+              className="absolute right-6 cursor-pointer"
+              size={20}
+              onClick={handleTogglePassword}
+            />
+          ) : (
+            <EyeOff
+              className="absolute right-6 cursor-pointer"
+              size={20}
+              onClick={handleTogglePassword}
+            />
+          )}
+        </div>
+        <div className="flex justify-between items-center">
+          <Button
+            type="submit"
+            className="flex items-center gap-x-1 max-w-[250px] bg-gradient-to-r from-violet-500 to-violet-200 rounded-3xl shadow hover:bg-gradient-to-l from-violet-600 to-violet-100 "
+          >
+            Login
+            <ArrowRightIcon size={20} />
+          </Button>
 
-        <Link href={"/forgot-password"}>Forgot Password?</Link>
-      </div>
-    </form>
+          <Link href={"/login/forgot-password"}>Forgot Password?</Link>
+        </div>
+      </form>
+    </div>
   );
 };
 
