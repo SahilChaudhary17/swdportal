@@ -1,11 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { StudentComplaints } from "./StudentComplaints";
-import HeadingCard from "./HeadingCard";
 import { Button } from "./ui/button";
 
 const Student = ({ complaint, onBack }) => {
-  console.log(complaint);
+  const url = process.env.SERVER_APP_URL;
+  console.log(url);
   const [complaints, setComplaints] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,7 +15,7 @@ const Student = ({ complaint, onBack }) => {
     const fetchComplaints = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/faculty/complaints/student",
+          `${url}/faculty/complaints/student`,
           {
             method: "POST",
             headers: {

@@ -25,7 +25,7 @@ const AddStudent = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:5000/faculty/students/add",
+        `${process.env.SERVER_APP_URL}/faculty/students/add`,
         {
           method: "POST",
           headers: {
@@ -37,7 +37,7 @@ const AddStudent = () => {
       const data = await response.json();
       if (!response.ok) {
         throw new Error(`Adding failed : ${data.message}`);
-      }else {
+      } else {
         alert("Student added successfully");
         window.location.reload(); // Refresh the page
       }

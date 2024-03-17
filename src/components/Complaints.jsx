@@ -10,7 +10,7 @@ const Complaints = ({ search }) => {
 
   useEffect(() => {
     // Fetch complaints from the backend
-    fetch("http://localhost:5000/faculty/complaints")
+    fetch(`${process.env.SERVER_APP_URL}/faculty/complaints`)
       .then((response) => response.json())
       .then((data) => {
         setComplaints(data.complaints);

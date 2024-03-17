@@ -22,7 +22,7 @@ const ForgotPasswordForm = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:5000/auth/forgot-password",
+        `${process.env.SERVER_APP_URL}/auth/forgot-password`,
         {
           method: "POST",
           headers: {
@@ -45,7 +45,7 @@ const ForgotPasswordForm = () => {
   const handleVerifyOTP = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/auth/verify-otp", {
+      const response = await fetch(`${process.env.SERVER_APP_URL}/auth/verify-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +66,7 @@ const ForgotPasswordForm = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:5000/auth/update-password",
+        `${process.env.SERVER_APP_URL}/auth/update-password`,
         {
           method: "POST",
           headers: {

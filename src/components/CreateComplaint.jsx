@@ -81,7 +81,7 @@ const CreateComplaint = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/faculty/complaint/create", {
+      const response = await fetch(`${process.env.SERVER_APP_URL}/faculty/complaint/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
