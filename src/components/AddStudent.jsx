@@ -37,9 +37,9 @@ const AddStudent = () => {
       const data = await response.json();
       if (!response.ok) {
         throw new Error(`Adding failed : ${data.message}`);
-      } else {
+      }else {
         alert("Student added successfully");
-        window.location.reload(); // Refresh the page
+        window.location.reload(); 
       }
     } catch (error) {
       alert(error);
