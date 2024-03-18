@@ -16,7 +16,7 @@ const DatePicker = ({ onSelect }) => {
 
   const handleDateSelect = (date) => {
     // setDate(format(date, "P").toString());
-    setDate(date)
+    setDate(date);
     onSelect(date);
   };
 
@@ -81,15 +81,18 @@ const CreateComplaint = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.SERVER_APP_URL}/faculty/complaint/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${process.env.SERVER_APP_URL}/faculty/complaint/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       if (!response.ok) {
         throw new Error(`Submission failed: ${data.message}`);
       }
@@ -98,107 +101,108 @@ const CreateComplaint = () => {
       alert("Error submitting form:", error);
     }
   };
-  
 
   return (
     <div className="w-full">
       <HeadingCard heading={"Add/Modify existing complaints"} />
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-y-4  "
-      >
-        <div className="grid grid-cols-2 gap-4">
-          <div className="relative flex items-center ">
-            <Input
-              type="text"
-              name="registrationNumber"
-              placeholder="Registration Number"
-              value={formData.registrationNumber}
-              onChange={handleChange}
-              className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
-            />
-            <Hash className="absolute right-6 text-gray-500" size={20} />
+      <div className="pb-5">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-y-4  ">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="relative flex items-center ">
+              <Input
+                type="text"
+                name="registrationNumber"
+                placeholder="Registration Number"
+                value={formData.registrationNumber}
+                onChange={handleChange}
+                className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+              />
+              <Hash className="absolute right-6 text-gray-500" size={20} />
+            </div>
+            <div className="relative flex items-center ">
+              <Input
+                type="text"
+                name="studentName"
+                placeholder="Student Name"
+                value={formData.studentName}
+                onChange={handleChange}
+                className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+              />
+              <User className="absolute right-6 text-gray-500" size={20} />
+            </div>
+            <div className="relative flex items-center ">
+              <Input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+              />
+              <MailIcon className="absolute right-6 text-gray-500" size={20} />
+            </div>
+            <div className="relative flex items-center ">
+              <Input
+                type="tel"
+                name="studentMobileNo"
+                placeholder="Mobile Number"
+                value={formData.studentMobileNo}
+                onChange={handleChange}
+                className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+              />
+              <Smartphone
+                className="absolute right-6 text-gray-500"
+                size={20}
+              />
+            </div>
           </div>
           <div className="relative flex items-center ">
             <Input
               type="text"
-              name="studentName"
-              placeholder="Student Name"
-              value={formData.studentName}
+              name="title"
+              placeholder="Complaint Name"
+              value={formData.title}
               onChange={handleChange}
               className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
             />
-            <User className="absolute right-6 text-gray-500" size={20} />
           </div>
-          <div className="relative flex items-center ">
-            <Input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
+          <div className="relative flex items-center">
+            <Textarea
+              name="description"
+              placeholder="Complaint Description"
+              value={formData.description}
               onChange={handleChange}
-              className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+              className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 "
             />
-            <MailIcon className="absolute right-6 text-gray-500" size={20} />
-          </div>
-          <div className="relative flex items-center ">
-            <Input
-              type="tel"
-              name="studentMobileNo"
-              placeholder="Mobile Number"
-              value={formData.studentMobileNo}
-              onChange={handleChange}
-              className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+            <MessageSquare
+              className="absolute right-6 top-4  text-gray-500"
+              size={20}
             />
-            <Smartphone className="absolute right-6 text-gray-500" size={20} />
           </div>
-        </div>
-        <div className="relative flex items-center ">
-          <Input
-            type="text"
-            name="title"
-            placeholder="Complaint Name"
-            value={formData.title}
-            onChange={handleChange}
-            className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
-          />
-        </div>
-        <div className="relative flex items-center">
-          <Textarea
-            name="description"
-            placeholder="Complaint Description"
-            value={formData.description}
-            onChange={handleChange}
-            className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 "
-          />
-          <MessageSquare
-            className="absolute right-6 top-4  text-gray-500"
-            size={20}
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4 ">
-          <div className="relative flex items-center mt-2 ">
-            <DatePicker onSelect={handleDateSelect} />
+          <div className="grid grid-cols-2 gap-4 ">
+            <div className="relative flex items-center mt-2 ">
+              <DatePicker onSelect={handleDateSelect} />
+            </div>
+            <div className="relative flex items-center ">
+              <Input
+                type="text"
+                name="facultyName"
+                placeholder="Complaint By"
+                value={formData.facultyName}
+                onChange={handleChange}
+                className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+              />
+              <User className="absolute right-6 text-gray-500" size={20} />
+            </div>
           </div>
-          <div className="relative flex items-center ">
-            <Input
-              type="text"
-              name="facultyName"
-              placeholder="Complaint By"
-              value={formData.facultyName}
-              onChange={handleChange}
-              className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
-            />
-            <User className="absolute right-6 text-gray-500" size={20} />
-          </div>
-        </div>
-        <Button
-          type="submit"
-          className=" flex items-center gap-x-1 max-w-[166px] bg-gradient-to-r from-violet-500 to-violet-200 rounded-3xl shadow hover:bg-gradient-to-l from-violet-500 to-violet-200 px-4 py-2"
-        >
-          Submit
-        </Button>
-      </form>
+          <Button
+            type="submit"
+            className=" flex items-center gap-x-1 max-w-[166px] bg-gradient-to-r from-violet-500 to-violet-200 rounded-3xl shadow hover:bg-gradient-to-l from-violet-500 to-violet-200 px-4 py-2"
+          >
+            Submit
+          </Button>
+        </form>
+      </div>
     </div>
   );
 };

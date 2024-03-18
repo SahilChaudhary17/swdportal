@@ -57,6 +57,30 @@ const LoginForm = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
+      <div className="absolute top-0 left-0 right-0 flex justify-between px-4 py-2">
+        <div className="flex items-center">
+          <a href="/login">
+            <img
+              src="/SW Logo.png"
+              alt="Office of Students' Welfare"
+              className="h-28 w-auto"
+            />
+          </a>
+        </div>
+        <div className="flex items-center">
+          <a
+            href="https://vitbhopal.ac.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/vitblogo.png"
+              alt="VIT Bhopal University"
+              className="h-24 w-auto"
+            />
+          </a>
+        </div>
+      </div>
       <form
         onSubmit={handleSubmit}
         className="gap-4 flex flex-col max-w-md border rounded-3xl shadow-2xl p-12 "

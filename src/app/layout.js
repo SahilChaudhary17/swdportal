@@ -5,8 +5,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "VIT Complaints App",
-  description: "General Secretary",
+  title: "SW Discipline Portal",
+  description: "Office of Students' Welfare",
 };
 
 export default function RootLayout({ children }) {

@@ -22,8 +22,8 @@ function Sidebar({ active, setActive}) {
   return (
     <div className='sidebar'>
       <div className='graduation-cap-container'>
-        {/* <img src={GraduationCap} alt="Graduation Cap"/> */}
-        <FaGraduationCap  className='h-[8vw] w-[8vw] text-white' />
+        <img src="/VITB_seal_white.png" alt="VIT Bhopal" />
+        {/* <FaGraduationCap  className='h-[8vw] w-[8vw] text-white' /> */}
       </div>
       <div className='menu'>
 
@@ -34,7 +34,7 @@ function Sidebar({ active, setActive}) {
           <IconContext.Provider value={{ size: '24px' }}>
             <MdSpaceDashboard />
           </IconContext.Provider>  
-          <p>Dashboard</p>
+          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Dashboard</p>
         </button>
 
         <button 
@@ -44,7 +44,7 @@ function Sidebar({ active, setActive}) {
           <IconContext.Provider value={{ size: '24px' }}>
             <MdLibraryBooks />
           </IconContext.Provider>
-          <p>Create Profile</p>
+          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Create Profile</p>
         </button>
 
         <button 
@@ -54,7 +54,7 @@ function Sidebar({ active, setActive}) {
           <IconContext.Provider value={{ size: '24px' }}>
             <HiPencil />
           </IconContext.Provider>
-          <p >Add / Modify</p>
+          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Add / Modify</p>
         </button>
 
         <button 
@@ -64,7 +64,7 @@ function Sidebar({ active, setActive}) {
           <IconContext.Provider value={{ size: '24px' }}>
             <BiSolidMessageAltDetail />
           </IconContext.Provider>
-          <p>View Complaints</p>
+          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>View Complaints</p>
         </button>
 
         <button 
@@ -74,7 +74,7 @@ function Sidebar({ active, setActive}) {
           <IconContext.Provider value={{ size: '24px' }}>
             <RiContactsBook2Fill />
           </IconContext.Provider>
-          <p >User Info</p>
+          <p style={{ fontSize: '1.08vw', textAlign: 'left' }} >User Info</p>
         </button>
 
       </div>
@@ -83,7 +83,7 @@ function Sidebar({ active, setActive}) {
         <IconContext.Provider value={{ size: '22px' }}>
           <FaSignOutAlt />
         </IconContext.Provider>  
-        <p>Logout</p>
+        <p style={{ fontSize: '1.2vw' }}>Logout</p>
       </button>
     </div>
   )
