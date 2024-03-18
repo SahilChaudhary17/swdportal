@@ -43,8 +43,8 @@ import {
               <AccordionContent className="pl-8 mx-4 flex flex-col gap-2 text-violet-400 font-semibold">
                 <div>{complaint.description}</div>
                 <div className="justify-between flex mr-6">
-                  <div>{complaint.dateTime.slice(0, 10)}</div>
-                  <div>Complaint By: {complaint.facultyName}</div>
+                  <div style={{ fontWeight: 'bold', fontStyle: 'italic' }}>{complaint.dateTime.slice(0, 10)}</div>
+                  <div style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Complaint By: {complaint.facultyName}</div>
                 </div>
               </AccordionContent>
             </AccordionItem>

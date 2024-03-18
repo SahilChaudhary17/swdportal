@@ -19,7 +19,7 @@ const DashboardHeading = () => {
         <div className="flex flex-col w-[69%] max-md:ml-0 max-md:w-full">
           <div className="flex flex-col self-stretch my-auto text-base text-white text-opacity-80 max-md:mt-10 max-md:max-w-full">
             <div className="max-md:max-w-full">
-              {format(currentTime, "PPP")} {currentTime.toLocaleTimeString()}
+              {format(currentTime, "PPP p")}
             </div>
             <div className="mt-16 mr-auto text-3xl font-semibold text-center text-white max-md:mt-10 max-md:max-w-full">
               Welcome back,

@@ -14,16 +14,13 @@ const Student = ({ complaint, onBack }) => {
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
-        const response = await fetch(
-          `${url}/faculty/complaints/student`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ regNumber: complaint.registrationNumber }),
-          }
-        );
+        const response = await fetch(`${url}/faculty/complaints/student`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ regNumber: complaint.registrationNumber }),
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch complaints");
@@ -48,30 +45,32 @@ const Student = ({ complaint, onBack }) => {
   return (
     <div className="flex flex-col mt-4 gap-4">
       <div className="flex justify-between gap-4 items-center">
+        <div className="grid grid-cols-2  font-['Poppins'] font-semibold ml-8">
+          <h1>{complaint.registrationNumber}</h1>
+          <h1>{complaint.studentMobileNo}</h1>
+          <h1>{complaint.studentName}</h1>
+          <h1>{complaint.email}</h1>
+        </div>
         <Button className="w-fit mr-8" onClick={() => onBack(null)}>
           Back
         </Button>
-        <div className="grid grid-cols-2  font-['Poppins'] font-semibold">
-          <h1>Student Registration Number: {complaint.registrationNumber}</h1>
-          <h1>Student Name: {complaint.studentName}</h1>
-          <h1>Student Mobile Number: {complaint.studentMobileNo}</h1>
-          <h1>Student email: {complaint.email}</h1>
-        </div>
       </div>
-      <div className="relative flex flex-col">
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <div className="relative flex flex-col">
-            <StudentComplaints
-              complaints={complaints}
-              currentPage={currentPage}
-              perPage={3}
-              totalComplaints={totalComplaints}
-              onPageChange={onPageChange}
-            />
-          </div>
-        )}
+      <div className="pb-5">
+        <div className="relative flex flex-col">
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <div className="relative flex flex-col">
+              <StudentComplaints
+                complaints={complaints}
+                currentPage={currentPage}
+                perPage={3}
+                totalComplaints={totalComplaints}
+                onPageChange={onPageChange}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
