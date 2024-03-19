@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -13,36 +12,70 @@ const AddStudent = () => {
     mobileNo: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+
+    // Check if registration number and mobile number have a length of 10 characters
+    if (name === "regNumber" && value.length === 10) {
+      // Fetch student details if the registration number exists
+      try {
+        const response = await fetch(
+          `${process.env.SERVER_APP_URL}/faculty/student/${value}`
+        );
+        if (response.ok) {
+          const studentData = await response.json();
+          setFormData((prevData) => ({
+            ...prevData,
+            name: studentData.name,
+            email: studentData.email,
+            mobileNo: studentData.mobileNo,
+          }));
+          alert("Student exists with this registration number.");
+        }
+      } catch (error) {
+        console.error("Error fetching student details:", error);
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(
-        `${process.env.SERVER_APP_URL}/faculty/students/add`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+    const { regNumber, name, email, mobileNo } = formData;
+
+    // Check if all fields are filled and regNumber and mobileNo have length of 10 characters
+    if (
+      regNumber.length === 10 &&
+      name !== "" &&
+      email !== "" &&
+      mobileNo.length === 10
+    ) {
+      try {
+        const response = await fetch(
+          `${process.env.SERVER_APP_URL}/faculty/students/add`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(`Adding failed : ${data.message}`);
+        } else {
+          alert("Student added successfully");
+          window.location.reload();
         }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(`Adding failed : ${data.message}`);
-      }else {
-        alert("Student added successfully");
-        window.location.reload(); 
+      } catch (error) {
+        alert(error);
       }
-    } catch (error) {
-      alert(error);
+    } else {
+      alert("Please fill in all the details and ensure the registration number and mobile number have a length of 10 characters.");
     }
   };
 
@@ -97,7 +130,7 @@ const AddStudent = () => {
         </div>
         <Button
           type="submit"
-          className="flex items-center gap-x-1 max-w-[166px] bg-gradient-to-r from-violet-500 to-violet-200 rounded-3xl shadow hover:bg-gradient-to-l from-violet-600 to-violet-100 "
+          className="flex items-center gap-x-1 max-w-[166px] bg-violet-500 rounded-3xl shadow hover:bg-violet-600"
         >
           Submit
           <ArrowRightIcon size={20} />
