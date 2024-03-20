@@ -11,11 +11,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Calendar } from "./ui/calendar";
 import HeadingCard from "./HeadingCard";
 
-const DatePicker = ({ onSelect }) => {
+export const DatePicker = ({ onSelect }) => {
   const [date, setDate] = useState();
 
   const handleDateSelect = (date) => {
-    // setDate(format(date, "P").toString());
     setDate(date);
     onSelect(date);
   };
@@ -127,7 +126,6 @@ const CreateComplaint = () => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-      console.log(data)
       if (!response.ok) {
         throw new Error(`Submission failed: ${data.message}`);
       }

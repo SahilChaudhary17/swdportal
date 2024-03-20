@@ -5,7 +5,6 @@ import { Button } from "./ui/button";
 
 const Student = ({ complaint, onBack }) => {
   const url = process.env.SERVER_APP_URL;
-  console.log(url);
   const [complaints, setComplaints] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);

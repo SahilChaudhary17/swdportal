@@ -7,6 +7,7 @@ import Navbar from "./Navbar";
 import CreateComplaint from "./CreateComplaint";
 import Complaints from "./Complaints";
 import Profile from "./Profile";
+import DownloadExcel from "./DownloadExcel";
 
 function Dashboard() {
   const [search, setSearch] = useState("");
@@ -37,6 +38,7 @@ function Dashboard() {
         {active === "Create Profile" ? <AddStudent /> : null}
         {active === "Add" ? <CreateComplaint /> : null}
         {active === "View" ? <Complaints search={search} /> : null}
+        {active === "Download" ? <DownloadExcel  /> : null}
         {active === "Info" ? <Profile /> : null}
       </div>
     </div>

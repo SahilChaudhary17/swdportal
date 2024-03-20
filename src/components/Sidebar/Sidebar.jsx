@@ -5,7 +5,7 @@ import { IconContext } from 'react-icons';
 import { MdSpaceDashboard } from "react-icons/md";
 import { MdLibraryBooks } from "react-icons/md";
 import { HiPencil } from "react-icons/hi2";
-import { BiSolidMessageAltDetail } from "react-icons/bi";
+import { BiSolidDownload, BiSolidMessageAltDetail } from "react-icons/bi";
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { FaGraduationCap, FaSignOutAlt } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
@@ -65,6 +65,16 @@ function Sidebar({ active, setActive}) {
             <BiSolidMessageAltDetail />
           </IconContext.Provider>
           <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>View Complaints</p>
+        </button>
+
+        <button 
+          className={active === 'Download' ? 'menu-item active' : 'menu-item'} 
+          onClick={() => setActive('Download')}
+        >
+          <IconContext.Provider value={{ size: '24px' }}>
+            <BiSolidDownload />
+          </IconContext.Provider>
+          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Download</p>
         </button>
 
         <button 
