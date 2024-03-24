@@ -9,7 +9,6 @@ const Complaints = ({ search }) => {
   const [selectedComplaint, setSelectedComplaint] = useState(null);
 
   useEffect(() => {
-    // Fetch complaints from the backend
     fetch(`${process.env.SERVER_APP_URL}/faculty/complaints`)
       .then((response) => response.json())
       .then((data) => {

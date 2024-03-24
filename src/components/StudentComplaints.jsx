@@ -1,8 +1,13 @@
 import React from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { DownloadIcon } from "lucide-react";
 import { Button } from "./ui/button";
-import {utils,writeFile} from "xlsx";
+import { utils, writeFile } from "xlsx";
 
 export function StudentComplaints({
   complaints,
@@ -34,17 +39,34 @@ export function StudentComplaints({
       return;
     }
 
-    const data = [[ "Date","Registration No.", "Student Name","Complaint Title", "Description", "Complaint By", "MobileNo", "Email"]];
+    const data = [
+      [
+        "Date",
+        "Registration No.",
+        "Student Name",
+        "Gender",
+        "Complaint Title",
+        "Description",
+        "Status",
+        "Complaint By",
+        "MobileNo",
+        "Email",
+        "Last Modify By",
+      ],
+    ];
     complaints.forEach((complaint) => {
       const row = [
         complaint.dateTime.slice(0, 10),
         complaint.registrationNumber,
         complaint.studentName,
+        complaint.gender,
         complaint.title,
         complaint.description,
+        complaint.status,
         complaint.facultyName,
         complaint.studentMobileNo,
         complaint.email,
+        complaint.modifiedBy[complaint.modifiedBy.length - 1],
       ];
       data.push(row);
     });
@@ -69,7 +91,16 @@ export function StudentComplaints({
             value={`item-${index}`}
           >
             <AccordionTrigger className="pl-8 mx-4 text-primary">
-              {complaint.title}
+              <div className="flex gap-3 items-center">
+              <div
+                className={`relative rounded-full h-6 w-6 ${
+                  complaint.status === "Resolved"
+                  ? "bg-green-400"
+                  : "bg-orange-400"
+                }`}
+                ></div>
+                <div>{complaint.title}</div>
+              </div>
             </AccordionTrigger>
             <AccordionContent className="pl-8 mx-4 flex flex-col gap-2 text-violet-400 font-semibold">
               <div>{complaint.description}</div>

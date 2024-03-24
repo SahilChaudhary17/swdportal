@@ -52,6 +52,7 @@ const CreateComplaint = () => {
   const [formData, setFormData] = useState({
     registrationNumber: "",
     studentName: "",
+    gender: "",
     email: "",
     studentMobileNo: "",
     title: "",
@@ -67,14 +68,16 @@ const CreateComplaint = () => {
       [name]: value,
     }));
 
-    if (name === 'registrationNumber' && value.length === 10) {
+    if (name === "registrationNumber" && value.length === 10) {
       fetchStudentDetails(value);
     }
   };
 
   const fetchStudentDetails = async (regNo) => {
     try {
-      const response = await fetch(`${process.env.SERVER_APP_URL}/faculty/student/${regNo}`);
+      const response = await fetch(
+        `${process.env.SERVER_APP_URL}/faculty/student/${regNo}`
+      );
       if (response.ok) {
         const studentData = await response.json();
         setFormData((prevData) => ({
@@ -82,6 +85,7 @@ const CreateComplaint = () => {
           studentName: studentData.name,
           email: studentData.email,
           studentMobileNo: studentData.mobileNo,
+          gender: studentData.gender,
         }));
       } else {
         setFormData((prevData) => ({
@@ -89,6 +93,7 @@ const CreateComplaint = () => {
           studentName: "",
           email: "",
           studentMobileNo: "",
+          gender: "",
         }));
       }
     } catch (error) {
@@ -110,7 +115,9 @@ const CreateComplaint = () => {
     e.preventDefault();
 
     // Check if all details are filled
-    const isFormComplete = Object.values(formData).every(value => value !== "");
+    const isFormComplete = Object.values(formData).every(
+      (value) => value !== ""
+    );
 
     if (!isFormComplete) {
       alert("Please fill in all the details before submitting.");
@@ -118,13 +125,16 @@ const CreateComplaint = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.SERVER_APP_URL}/faculty/complaint/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${process.env.SERVER_APP_URL}/faculty/complaint/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await response.json();
       if (!response.ok) {
         throw new Error(`Submission failed: ${data.message}`);
@@ -137,11 +147,8 @@ const CreateComplaint = () => {
 
   return (
     <div className="w-full">
-      <HeadingCard heading={"Add/Modify existing complaints"} />
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-y-4  "
-      >
+      <HeadingCard heading={"Add new complaints"} />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-y-4  ">
         <div className="grid grid-cols-2 gap-4">
           <div className="relative flex items-center ">
             <Input
@@ -154,16 +161,34 @@ const CreateComplaint = () => {
             />
             <Hash className="absolute right-6 text-gray-500" size={20} />
           </div>
-          <div className="relative flex items-center ">
-            <Input
-              type="text"
-              name="studentName"
-              placeholder="Student Name"
-              value={formData.studentName}
-              onChange={handleChange}
-              className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
-            />
-            <User className="absolute right-6 text-gray-500" size={20} />
+          <div className="relative flex items-center gap-4 justify-between">
+            <div className="flex w-full relative items-center">
+              <Input
+                type="text"
+                name="studentName"
+                placeholder="Student Name"
+                value={formData.studentName}
+                onChange={handleChange}
+                className="w-full rounded-2xl border border-violet-500 text-violet-400 font-semibold font-['Poppins'] px-4 py-2"
+              />
+              <User className="absolute right-6 text-gray-500" size={20} />
+            </div>
+            <div className="">
+              <select
+                className="appearance-none  text-gray-500  rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-violet-500 border font-semibold font-['Poppins'] disabled:opacity-50 py-2 px-8 dark:text-gray-400"
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+              >
+                <option value="" disabled hidden>
+                  Select Gender
+                </option>
+                <option className="" value="Male">
+                  Male
+                </option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
           </div>
           <div className="relative flex items-center ">
             <Input
@@ -211,11 +236,11 @@ const CreateComplaint = () => {
             size={20}
           />
         </div>
-        <div className="grid grid-cols-2 gap-4 ">
-          <div className="relative flex items-center mt-2 ">
+        <div className="flex  gap-4 items-center w-full">
+          <div className="relative flex-1 items-center   ">
             <DatePicker onSelect={handleDateSelect} />
           </div>
-          <div className="relative flex items-center ">
+          <div className="relative flex flex-1 items-center ">
             <Input
               type="text"
               name="facultyName"
@@ -237,6 +262,5 @@ const CreateComplaint = () => {
     </div>
   );
 };
-
 
 export default CreateComplaint;

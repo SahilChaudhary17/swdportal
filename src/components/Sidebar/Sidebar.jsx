@@ -4,7 +4,7 @@ import './sidebar.css';
 import { IconContext } from 'react-icons';
 import { MdSpaceDashboard } from "react-icons/md";
 import { MdLibraryBooks } from "react-icons/md";
-import { HiPencil } from "react-icons/hi2";
+import { HiPencil, HiPlus, HiUserPlus } from "react-icons/hi2";
 import { BiSolidDownload, BiSolidMessageAltDetail } from "react-icons/bi";
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { FaGraduationCap, FaSignOutAlt } from "react-icons/fa";
@@ -42,7 +42,7 @@ function Sidebar({ active, setActive}) {
           onClick={() => setActive('Create Profile')}
         >
           <IconContext.Provider value={{ size: '24px' }}>
-            <MdLibraryBooks />
+            <HiUserPlus />
           </IconContext.Provider>
           <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Create Profile</p>
         </button>
@@ -52,9 +52,18 @@ function Sidebar({ active, setActive}) {
           onClick={() => setActive('Add')}
         >
           <IconContext.Provider value={{ size: '24px' }}>
+            <MdLibraryBooks />
+          </IconContext.Provider>
+          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Add Complaint</p>
+        </button>
+        <button 
+          className={active === 'Modify' ? 'menu-item active' : 'menu-item'} 
+          onClick={() => setActive('Modify')}
+        >
+          <IconContext.Provider value={{ size: '24px' }}>
             <HiPencil />
           </IconContext.Provider>
-          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Add / Modify</p>
+          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Modify Complaint</p>
         </button>
 
         <button 

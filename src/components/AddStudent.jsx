@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { User, MailIcon, ArrowRightIcon, Smartphone, Hash } from "lucide-react";
+import {
+  User,
+  MailIcon,
+  ArrowRightIcon,
+  Smartphone,
+  Hash,
+} from "lucide-react";
 import HeadingCard from "./HeadingCard";
 
 const AddStudent = () => {
@@ -10,7 +16,9 @@ const AddStudent = () => {
     name: "",
     email: "",
     mobileNo: "",
+    gender: "",
   });
+  console.log(formData);
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -19,9 +27,7 @@ const AddStudent = () => {
       [name]: value,
     }));
 
-    // Check if registration number and mobile number have a length of 10 characters
     if (name === "regNumber" && value.length === 10) {
-      // Fetch student details if the registration number exists
       try {
         const response = await fetch(
           `${process.env.SERVER_APP_URL}/faculty/student/${value}`
@@ -33,6 +39,7 @@ const AddStudent = () => {
             name: studentData.name,
             email: studentData.email,
             mobileNo: studentData.mobileNo,
+            gender: studentData.gender,
           }));
           alert("Student exists with this registration number.");
         }
@@ -44,14 +51,14 @@ const AddStudent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { regNumber, name, email, mobileNo } = formData;
+    const { regNumber, name, email, mobileNo, gender } = formData;
 
-    // Check if all fields are filled and regNumber and mobileNo have length of 10 characters
     if (
       regNumber.length === 10 &&
       name !== "" &&
       email !== "" &&
-      mobileNo.length === 10
+      mobileNo.length === 10 &&
+      gender !== ""
     ) {
       try {
         const response = await fetch(
@@ -69,13 +76,14 @@ const AddStudent = () => {
           throw new Error(`Adding failed : ${data.message}`);
         } else {
           alert("Student added successfully");
-          window.location.reload();
         }
       } catch (error) {
         alert(error);
       }
     } else {
-      alert("Please fill in all the details and ensure the registration number and mobile number have a length of 10 characters.");
+      alert(
+        "Please fill in all the details and ensure the registration number and mobile number have a length of 10 characters."
+      );
     }
   };
 
@@ -106,6 +114,23 @@ const AddStudent = () => {
           />
           <User className="absolute right-6" size={20} />
         </div>
+        <div className="relative flex items-center rounded-2xl border border-violet-500">
+          <select
+            className="appearance-none text-gray-500  rounded-2xl flex h-[54px] w-full bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-violet-500 border font-semibold font-['Poppins'] disabled:opacity-50 py-2 px-8 dark:text-gray-400"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+          >
+            <option value="" disabled hidden>
+              Select Gender
+            </option>
+            <option className="" value="Male">
+              Male
+            </option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+
         <div className="relative flex items-center  rounded-2xl border border-violet-500">
           <Input
             className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
