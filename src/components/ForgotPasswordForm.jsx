@@ -48,7 +48,7 @@ const ForgotPasswordForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, otp }), // Pass 'otp' state variable
+          body: JSON.stringify({ email, otp }), 
         }
       );
       const data = await response.json();
