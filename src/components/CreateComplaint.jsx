@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import jwt from "jsonwebtoken";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { useState } from "react";
@@ -49,6 +50,9 @@ export const DatePicker = ({ onSelect }) => {
   );
 };
 const CreateComplaint = () => {
+
+  const token = localStorage.getItem("complaintToken");
+  const decodedToken = jwt.decode(token);
   const [formData, setFormData] = useState({
     registrationNumber: "",
     studentName: "",
@@ -57,7 +61,7 @@ const CreateComplaint = () => {
     studentMobileNo: "",
     title: "",
     description: "",
-    facultyName: "",
+    facultyName: decodedToken.name,
     dateTime: "",
   });
 
@@ -247,6 +251,7 @@ const CreateComplaint = () => {
               placeholder="Complaint By"
               value={formData.facultyName}
               onChange={handleChange}
+              disabled
               className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
             />
             <User className="absolute right-6 text-gray-500" size={20} />
