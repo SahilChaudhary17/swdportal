@@ -13,10 +13,10 @@ import { useRouter } from 'next/navigation';
 
 function Sidebar({ active, setActive}) {
   const router = useRouter();
-  // const [active, setActive] = useState('Dashboard');
   
   const handleSignOut = () => {
     localStorage.removeItem("complaintToken");
+    alert("User  Logged Out Successfully!");
     router.push('/login');
   };
   return (

@@ -52,7 +52,7 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
         }
       );
       const data = await response.json();
-      console.log(data.message);
+      alert(data.message);
     } catch (error) {
       console.error("Error resolving complaint:", error);
     }
@@ -72,7 +72,7 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
         }
       );
       const data = await response.json();
-      console.log(data.message);
+      alert(data.message);
     } catch (error) {
       console.error("Error modifying complaint:", error);
     }
