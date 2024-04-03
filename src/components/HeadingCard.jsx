@@ -9,7 +9,7 @@ const HeadingCard = ({heading}) => {
           {heading}
         </div>
 
-        <div className=" mx-5  w-[15%] max-md:ml-0 max-md:w-full">
+        <div className=" mx-5  w- full max-md:ml-0 max-md:w-full">
           <Image
             // loading="lazy"
             src="/card_cap.svg" 
