@@ -12,7 +12,7 @@ import {
   Smartphone,
   User,
 } from "lucide-react";
-
+import { Toast } from "./Toast";
 const ModifyForm = ({ selectedComplaint, onBack }) => {
   const token = localStorage.getItem("complaintToken");
   const decodedToken = jwt.decode(token);
@@ -52,9 +52,17 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
         }
       );
       const data = await response.json();
-      alert(data.message);
+      // alert(data.message);
+      Toast.fire({
+        icon: "success",
+        title: data.message,
+      });
     } catch (error) {
-      console.error("Error resolving complaint:", error);
+      // console.error("Error resolving complaint:", error);
+      Toast.fire({
+        icon: "error",
+        title: error.message,
+      });
     }
   };
 
@@ -72,9 +80,17 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
         }
       );
       const data = await response.json();
-      alert(data.message);
+      // alert(data.message);
+      Toast.fire({
+        icon: "success",
+        title: data.message,
+      });
     } catch (error) {
-      console.error("Error modifying complaint:", error);
+      // console.error("Error modifying complaint:", error);
+      Toast.fire({
+        icon: "error",
+        title: error.message,
+      });
     }
   };
 
@@ -204,7 +220,7 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
             <MoveLeft className="text-white" size={20} />
           </Button>
           <Button
-            type='button'
+            type="button"
             onClick={handleResolve}
             className="flex items-center gap-x-1 max-w-[166px] bg-green-500 rounded-3xl shadow hover:bg-green-600 px-4 py-2"
           >

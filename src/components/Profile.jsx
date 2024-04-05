@@ -33,16 +33,8 @@ const Profile = () => {
             alt="Profile Picture"
             className="self-center max-w-full aspect-square rounded-lg w-[200px]"
           />
-        ) : (
-          <Image
-            width={250}
-            height={250}
-            src={"/Sahil.jpg"}
-            alt="Profile Picture"
-            priority
-            className="self-center max-w-full aspect-square rounded-lg w-[200px]"
-          />
-        )}
+        ) : null
+        }
         <div className="mt-7 max-md:max-w-full">{userData.empId}</div>
         <div className="mt-3 font-semibold max-md:max-w-full">
           {userData.name}

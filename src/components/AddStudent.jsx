@@ -1,15 +1,9 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import {
-  User,
-  MailIcon,
-  ArrowRightIcon,
-  Smartphone,
-  Hash,
-} from "lucide-react";
+import { User, MailIcon, ArrowRightIcon, Smartphone, Hash } from "lucide-react";
 import HeadingCard from "./HeadingCard";
-
+import {Toast} from './Toast'
 const AddStudent = () => {
   const [formData, setFormData] = useState({
     regNumber: "",
@@ -18,7 +12,6 @@ const AddStudent = () => {
     mobileNo: "",
     gender: "",
   });
-  console.log(formData);
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -41,7 +34,10 @@ const AddStudent = () => {
             mobileNo: studentData.mobileNo,
             gender: studentData.gender,
           }));
-          alert("Student exists with this registration number.");
+          Toast.fire({ 
+            icon: "warning",
+            title: 'Student exists with this registration number.',
+          });
         }
       } catch (error) {
         console.error("Error fetching student details:", error);
@@ -75,15 +71,22 @@ const AddStudent = () => {
         if (!response.ok) {
           throw new Error(`Adding failed : ${data.message}`);
         } else {
-          alert("Student added successfully");
+          Toast.fire({ 
+            icon: "success",
+            title: 'Student added successfully.',
+          });
         }
       } catch (error) {
-        alert(error);
+        Toast.fire({ 
+          icon: "error",
+          title: error.message,
+        });
       }
     } else {
-      alert(
-        "Please fill in all the details and ensure the registration number and mobile number have a length of 10 characters."
-      );
+      Toast.fire({ 
+        icon: "warning",
+        title: 'All info required. Reg & mobile # must be 10 digits.',
+      });
     }
   };
 

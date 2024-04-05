@@ -5,7 +5,7 @@ import { Input } from "./ui/input";
 import { User } from "lucide-react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
 import { useRouter } from "next/navigation";
-
+import { Toast } from "./Toast";
 const ForgotPasswordForm = () => {
   const [empId, setEmpId] = useState("");
   const [email, setEmail] = useState("");
@@ -32,9 +32,16 @@ const ForgotPasswordForm = () => {
       if (!response.ok) {
         throw new Error(`Forgot password failed: ${data.message}`);
       }
+      Toast.fire({
+        icon: "success",
+        title: "Please check your email for OTP.",
+      });
       setStep(2);
     } catch (error) {
-      alert(error.message);
+      Toast.fire({
+        icon: "error",
+        title: error.message,
+      });
     }
   };
 
@@ -48,7 +55,7 @@ const ForgotPasswordForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, otp }), 
+          body: JSON.stringify({ email, otp }),
         }
       );
       const data = await response.json();
@@ -56,8 +63,15 @@ const ForgotPasswordForm = () => {
         throw new Error(`OTP verification failed: ${data.message}`);
       }
       setStep(3);
+      Toast.fire({
+        icon: "success",
+        title: "OTP verification successful.",
+      });
     } catch (error) {
-      alert(error.message);
+      Toast.fire({
+        icon: "error",
+        title: error.message,
+      });
     }
   };
 
@@ -81,10 +95,17 @@ const ForgotPasswordForm = () => {
       if (!response.ok) {
         throw new Error(`Update password failed: ${data.message}`);
       } else {
+        Toast.fire({
+          icon: "success",
+          title: "Password updated successfully.",
+        });
         router.push("/login");
       }
     } catch (error) {
-      alert(error.message);
+      Toast.fire({
+        icon: "error",
+        title: error.message,
+      });
     }
   };
 

@@ -8,7 +8,7 @@ import {
 import { DownloadIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { utils, writeFile } from "xlsx";
-
+import { Toast } from "./Toast";
 export function StudentComplaints({
   complaints,
   currentPage,
@@ -35,46 +35,65 @@ export function StudentComplaints({
   };
 
   const handleDownloadExcel = () => {
-    if (complaints.length === 0) {
-      return;
-    }
+    try {
+      if (complaints.length === 0) {
+        throw new Error("No complaints available to download.");
+      }
+      Toast.fire({
+        icon: "info",
+        title: "Downloading Complaints",
+        text: "Your file is being downloaded...",
+      });
 
-    const data = [
-      [
-        "Date",
-        "Registration No.",
-        "Student Name",
-        "Gender",
-        "Complaint Title",
-        "Description",
-        "Status",
-        "Complaint By",
-        "MobileNo",
-        "Email",
-        "Last Modify By",
-      ],
-    ];
-    complaints.forEach((complaint) => {
-      const row = [
-        complaint.dateTime.slice(0, 10),
-        complaint.registrationNumber,
-        complaint.studentName,
-        complaint.gender,
-        complaint.title,
-        complaint.description,
-        complaint.status,
-        complaint.facultyName,
-        complaint.studentMobileNo,
-        complaint.email,
-        complaint.modifiedBy[complaint.modifiedBy.length - 1],
+      const data = [
+        [
+          "Date",
+          "Registration No.",
+          "Student Name",
+          "Gender",
+          "Complaint Title",
+          "Description",
+          "Status",
+          "Complaint By",
+          "MobileNo",
+          "Email",
+          "Last Modify By",
+        ],
       ];
-      data.push(row);
-    });
+      complaints.forEach((complaint) => {
+        const row = [
+          complaint.dateTime.slice(0, 10),
+          complaint.registrationNumber,
+          complaint.studentName,
+          complaint.gender,
+          complaint.title,
+          complaint.description,
+          complaint.status,
+          complaint.facultyName,
+          complaint.studentMobileNo,
+          complaint.email,
+          complaint.modifiedBy[complaint.modifiedBy.length - 1],
+        ];
+        data.push(row);
+      });
 
-    const ws = utils.aoa_to_sheet(data);
-    const wb = utils.book_new();
-    utils.book_append_sheet(wb, ws, "Complaints");
-    writeFile(wb, "complaints.xlsx");
+      const ws = utils.aoa_to_sheet(data);
+      const wb = utils.book_new();
+      utils.book_append_sheet(wb, ws, "Complaints");
+
+      writeFile(wb, "complaints.xlsx");
+      
+      Toast.fire({
+        icon: "success",
+        title: "File Downloaded",
+        text: "File has been downloaded successfully.",
+      });
+    } catch (error) {
+      Toast.fire({
+        icon: "error",
+        title: error.message,
+      });
+    }
   };
 
   return (
@@ -92,12 +111,12 @@ export function StudentComplaints({
           >
             <AccordionTrigger className="pl-8 mx-4 text-primary">
               <div className="flex gap-3 items-center">
-              <div
-                className={`relative rounded-full h-6 w-6 ${
-                  complaint.status === "Resolved"
-                  ? "bg-green-400"
-                  : "bg-orange-400"
-                }`}
+                <div
+                  className={`relative rounded-full h-6 w-6 ${
+                    complaint.status === "Resolved"
+                      ? "bg-green-400"
+                      : "bg-orange-400"
+                  }`}
                 ></div>
                 <div>{complaint.title}</div>
               </div>

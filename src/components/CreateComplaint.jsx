@@ -11,7 +11,7 @@ import { User, MailIcon, Smartphone, Hash, MessageSquare } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Calendar } from "./ui/calendar";
 import HeadingCard from "./HeadingCard";
-
+import {Toast} from './Toast'
 export const DatePicker = ({ onSelect }) => {
   const [date, setDate] = useState();
 
@@ -101,7 +101,11 @@ const CreateComplaint = () => {
         }));
       }
     } catch (error) {
-      console.error("Error fetching student details:", error);
+      // console.error("Error fetching student details:", error);
+      Toast.fire({ 
+        icon: "error",
+        title: error.message,
+      });
     }
   };
 
@@ -118,13 +122,16 @@ const CreateComplaint = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if all details are filled
     const isFormComplete = Object.values(formData).every(
       (value) => value !== ""
     );
 
     if (!isFormComplete) {
-      alert("Please fill in all the details before submitting.");
+      Toast.fire({ 
+        icon: "warning",
+        title: 'Please fill in all the details before submitting.',
+      });
+      // alert("Please fill in all the details before submitting.");
       return;
     }
 
@@ -143,9 +150,17 @@ const CreateComplaint = () => {
       if (!response.ok) {
         throw new Error(`Submission failed: ${data.message}`);
       }
-      alert(data.message);
+      Toast.fire({ 
+        icon: "success",
+        title: data.message,
+      });
+      // alert(data.message);
     } catch (error) {
-      alert("Error submitting form:", error);
+      // alert("Error submitting form:", error);
+      Toast.fire({ 
+        icon: "error",
+        title: error.message,
+      });
     }
   };
 

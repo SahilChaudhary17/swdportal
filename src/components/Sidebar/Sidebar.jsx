@@ -1,111 +1,121 @@
-"use client"
-import React, { useState } from 'react';
-import './sidebar.css';
-import { IconContext } from 'react-icons';
+"use client";
+import React, { useState } from "react";
+import "./sidebar.css";
+import { IconContext } from "react-icons";
 import { MdSpaceDashboard } from "react-icons/md";
 import { MdLibraryBooks } from "react-icons/md";
 import { HiPencil, HiPlus, HiUserPlus } from "react-icons/hi2";
 import { BiSolidDownload, BiSolidMessageAltDetail } from "react-icons/bi";
 import { RiContactsBook2Fill } from "react-icons/ri";
-import { FaGraduationCap, FaSignOutAlt } from "react-icons/fa";
-import { useRouter } from 'next/navigation';
+import { FaSignOutAlt } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
-
-function Sidebar({ active, setActive}) {
+function Sidebar({ active, setActive }) {
   const router = useRouter();
-  
+
   const handleSignOut = () => {
     localStorage.removeItem("complaintToken");
-    alert("User  Logged Out Successfully!");
-    router.push('/login');
+    Swal.fire({
+      title: "You have been logged out!",
+      icon: "success",
+    });
+    router.push("/login");
   };
+
   return (
-    <div className='sidebar'>
-      <div className='graduation-cap-container'>
+    <div className="sidebar">
+      <div className="graduation-cap-container">
         <img src="/VITB_seal_white.png" alt="VIT Bhopal" />
         {/* <FaGraduationCap  className='h-[8vw] w-[8vw] text-white' /> */}
       </div>
-      <div className='menu'>
-
-        <button 
-          className={active === 'Dashboard' ? 'menu-item active' : 'menu-item'} 
-          onClick={() => setActive('Dashboard')}
+      <div className="menu">
+        <button
+          className={active === "Dashboard" ? "menu-item active" : "menu-item"}
+          onClick={() => setActive("Dashboard")}
         >
-          <IconContext.Provider value={{ size: '24px' }}>
+          <IconContext.Provider value={{ size: "24px" }}>
             <MdSpaceDashboard />
-          </IconContext.Provider>  
-          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Dashboard</p>
+          </IconContext.Provider>
+          <p style={{ fontSize: "1.08vw", textAlign: "left" }}>Dashboard</p>
         </button>
 
-        <button 
-          className={active === 'Create Profile' ? 'menu-item active' : 'menu-item'} 
-          onClick={() => setActive('Create Profile')}
+        <button
+          className={
+            active === "Create Profile" ? "menu-item active" : "menu-item"
+          }
+          onClick={() => setActive("Create Profile")}
         >
-          <IconContext.Provider value={{ size: '24px' }}>
+          <IconContext.Provider value={{ size: "24px" }}>
             <HiUserPlus />
           </IconContext.Provider>
-          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Create Profile</p>
+          <p style={{ fontSize: "1.08vw", textAlign: "left" }}>
+            Create Profile
+          </p>
         </button>
 
-        <button 
-          className={active === 'Add' ? 'menu-item active' : 'menu-item'} 
-          onClick={() => setActive('Add')}
+        <button
+          className={active === "Add" ? "menu-item active" : "menu-item"}
+          onClick={() => setActive("Add")}
         >
-          <IconContext.Provider value={{ size: '24px' }}>
+          <IconContext.Provider value={{ size: "24px" }}>
             <MdLibraryBooks />
           </IconContext.Provider>
-          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Add Complaint</p>
+          <p style={{ fontSize: "1.08vw", textAlign: "left" }}>Add Complaint</p>
         </button>
-        <button 
-          className={active === 'Modify' ? 'menu-item active' : 'menu-item'} 
-          onClick={() => setActive('Modify')}
+        <button
+          className={active === "Modify" ? "menu-item active" : "menu-item"}
+          onClick={() => setActive("Modify")}
         >
-          <IconContext.Provider value={{ size: '24px' }}>
+          <IconContext.Provider value={{ size: "24px" }}>
             <HiPencil />
           </IconContext.Provider>
-          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Modify Complaint</p>
+          <p style={{ fontSize: "1.08vw", textAlign: "left" }}>
+            Modify Complaint
+          </p>
         </button>
 
-        <button 
-          className={active === 'View' ? 'menu-item active' : 'menu-item'} 
-          onClick={() => setActive('View')}
+        <button
+          className={active === "View" ? "menu-item active" : "menu-item"}
+          onClick={() => setActive("View")}
         >
-          <IconContext.Provider value={{ size: '24px' }}>
+          <IconContext.Provider value={{ size: "24px" }}>
             <BiSolidMessageAltDetail />
           </IconContext.Provider>
-          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>View Complaints</p>
+          <p style={{ fontSize: "1.08vw", textAlign: "left" }}>
+            View Complaints
+          </p>
         </button>
 
-        <button 
-          className={active === 'Download' ? 'menu-item active' : 'menu-item'} 
-          onClick={() => setActive('Download')}
+        <button
+          className={active === "Download" ? "menu-item active" : "menu-item"}
+          onClick={() => setActive("Download")}
         >
-          <IconContext.Provider value={{ size: '24px' }}>
+          <IconContext.Provider value={{ size: "24px" }}>
             <BiSolidDownload />
           </IconContext.Provider>
-          <p style={{ fontSize: '1.08vw', textAlign: 'left' }}>Download</p>
+          <p style={{ fontSize: "1.08vw", textAlign: "left" }}>Download</p>
         </button>
 
-        <button 
-          className={active === 'Info' ? 'menu-item active' : 'menu-item'} 
-          onClick={() => setActive('Info')}
+        <button
+          className={active === "Info" ? "menu-item active" : "menu-item"}
+          onClick={() => setActive("Info")}
         >
-          <IconContext.Provider value={{ size: '24px' }}>
+          <IconContext.Provider value={{ size: "24px" }}>
             <RiContactsBook2Fill />
           </IconContext.Provider>
-          <p style={{ fontSize: '1.08vw', textAlign: 'left' }} >User Info</p>
+          <p style={{ fontSize: "1.08vw", textAlign: "left" }}>User Info</p>
         </button>
-
       </div>
 
-      <button className= 'menu-item signout' onClick={handleSignOut}>
-        <IconContext.Provider value={{ size: '22px' }}>
+      <button className="menu-item signout" onClick={handleSignOut}>
+        <IconContext.Provider value={{ size: "22px" }}>
           <FaSignOutAlt />
-        </IconContext.Provider>  
-        <p style={{ fontSize: '1.2vw' }}>Logout</p>
+        </IconContext.Provider>
+        <p style={{ fontSize: "1.2vw" }}>Logout</p>
       </button>
     </div>
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;
