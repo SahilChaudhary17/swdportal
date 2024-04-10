@@ -44,7 +44,7 @@ const Student = ({ complaint, onBack }) => {
   return (
     <div className="flex flex-col mt-4 gap-4">
       <div className="flex justify-between gap-4 items-center">
-        <div className="grid grid-cols-2  font-['Poppins'] font-semibold ml-8">
+        <div className="grid grid-cols-2 font-semibold ml-8">
           <h1>{complaint.registrationNumber}</h1>
           <h1>{complaint.studentMobileNo}</h1>
           <h1>{complaint.studentName}</h1>

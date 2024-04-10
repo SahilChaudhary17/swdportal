@@ -82,7 +82,7 @@ export function StudentComplaints({
       utils.book_append_sheet(wb, ws, "Complaints");
 
       writeFile(wb, "complaints.xlsx");
-      
+
       Toast.fire({
         icon: "success",
         title: "File Downloaded",
@@ -105,30 +105,35 @@ export function StudentComplaints({
       >
         {currentComplaints.map((complaint, index) => (
           <AccordionItem
-            className="rounded-2xl bg-violet-200"
+            className="rounded-2xl bg-accent"
             key={index}
             value={`item-${index}`}
           >
-            <AccordionTrigger className="pl-8 mx-4 text-primary">
-              <div className="flex gap-3 items-center">
-                <div
-                  className={`relative rounded-full h-6 w-6 ${
-                    complaint.status === "Resolved"
-                      ? "bg-green-400"
-                      : "bg-orange-400"
-                  }`}
-                ></div>
-                <div>{complaint.title}</div>
+            <AccordionTrigger className="flex gap-2 py-4 pl-8  font-semibold h-fit justify-between items-center">
+              <div
+                className={`relative rounded-full h-6 w-6 ${
+                  complaint.status === "Resolved"
+                    ? "bg-green-400"
+                    : "bg-orange-400"
+                }`}
+              ></div>
+              <div className="w-4/5 ml-4 max-h-12  text-ellipsis break-words overflow-y-auto ">
+                {complaint.title}
+              </div>
+              <div className="w-1/5 flex flex-col text-gray-500 ">
+                <div>Student ID:</div>
+                <div>{complaint.registrationNumber}</div>
               </div>
             </AccordionTrigger>
-            <AccordionContent className="pl-8 mx-4 flex flex-col gap-2 text-violet-400 font-semibold">
-              <div>{complaint.description}</div>
-              <div className="justify-between flex mr-6">
-                <div style={{ fontWeight: "bold", fontStyle: "italic" }}>
-                  {complaint.dateTime.slice(0, 10)}
-                </div>
-                <div style={{ fontWeight: "bold", fontStyle: "italic" }}>
-                  Complaint By: {complaint.facultyName}
+
+            <AccordionContent className="px-8 dark:text-white/70">
+              <div className="mb-4 max-h-60 break-words overflow-y-auto">
+                {complaint.description}
+              </div>
+              <div className="flex justify-between ">
+                <div>Date: {complaint.dateTime.slice(0, 10)}</div>
+                <div className="italic">
+                  Registered By: {complaint.facultyName}
                 </div>
               </div>
             </AccordionContent>

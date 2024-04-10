@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { User, MailIcon, ArrowRightIcon, Smartphone, Hash } from "lucide-react";
+import {
+  User,
+  MailIcon,
+  ArrowRightIcon,
+  Smartphone,
+  Hash,
+  MoveDown,
+} from "lucide-react";
 import HeadingCard from "./HeadingCard";
-import {Toast} from './Toast'
+import { Toast } from "./Toast";
 const AddStudent = () => {
   const [formData, setFormData] = useState({
     regNumber: "",
@@ -34,9 +41,9 @@ const AddStudent = () => {
             mobileNo: studentData.mobileNo,
             gender: studentData.gender,
           }));
-          Toast.fire({ 
+          Toast.fire({
             icon: "warning",
-            title: 'Student exists with this registration number.',
+            title: "Student exists with this registration number.",
           });
         }
       } catch (error) {
@@ -71,21 +78,21 @@ const AddStudent = () => {
         if (!response.ok) {
           throw new Error(`Adding failed : ${data.message}`);
         } else {
-          Toast.fire({ 
+          Toast.fire({
             icon: "success",
-            title: 'Student added successfully.',
+            title: "Student added successfully.",
           });
         }
       } catch (error) {
-        Toast.fire({ 
+        Toast.fire({
           icon: "error",
           title: error.message,
         });
       }
     } else {
-      Toast.fire({ 
+      Toast.fire({
         icon: "warning",
-        title: 'All info required. Reg & mobile # must be 10 digits.',
+        title: "All info required. Reg & mobile # must be 10 digits.",
       });
     }
   };
@@ -94,75 +101,109 @@ const AddStudent = () => {
     <div className="w-full ">
       <HeadingCard heading={"Create A New Student Profile"} />
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-y-4 max-w-lg">
-        <div className="relative flex items-center rounded-2xl border border-violet-500">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col m-auto gap-y-4 max-w-3xl "
+      >
+        <div className="relative flex gap-3 items-center">
+          <div className="w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+            Registration Number
+          </div>
           <Input
-            className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
+            className="rounded-2xl w-2/3 text-base font-semibold  px-4"
             type="text"
             name="regNumber"
-            placeholder="Registration Number"
+            placeholder="00XYZ00000"
             value={formData.regNumber}
             onChange={handleChange}
           />
           <Hash className="absolute right-6" size={20} />
         </div>
-        <div className="relative flex items-center  rounded-2xl border border-violet-500">
+        <div className="relative flex gap-3 items-center">
+          <div className="w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+            Student Name
+          </div>
           <Input
-            className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
+            className=" rounded-2xl w-2/3 text-base font-semibold  px-4"
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder="John Doe"
             value={formData.name}
             onChange={handleChange}
           />
           <User className="absolute right-6" size={20} />
         </div>
-        <div className="relative flex items-center rounded-2xl border border-violet-500">
-          <select
-            className="appearance-none text-gray-500  rounded-2xl flex h-[54px] w-full bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-violet-500 border font-semibold font-['Poppins'] disabled:opacity-50 py-2 px-8 dark:text-gray-400"
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-          >
-            <option value="" disabled hidden>
-              Select Gender
-            </option>
-            <option className="" value="Male">
-              Male
-            </option>
-            <option value="Female">Female</option>
-          </select>
-        </div>
 
-        <div className="relative flex items-center  rounded-2xl border border-violet-500">
+        <div className="relative flex gap-3 items-center">
+          <div className="w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+            Student Email
+          </div>
           <Input
-            className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
+            className=" rounded-2xl w-2/3 text-base font-semibold  px-4"
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="john_doe@example.com"
             value={formData.email}
             onChange={handleChange}
           />
           <MailIcon className="absolute right-6 " size={20} />
         </div>
-        <div className="relative flex items-center  rounded-2xl border border-violet-500">
+        <div className="relative flex gap-3 items-center">
+          <div className="w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+            Mobile Number
+          </div>
           <Input
-            className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
+            className="rounded-2xl w-2/3 text-base font-semibold  px-4"
             type="tel"
             name="mobileNo"
-            placeholder="Mobile Number"
+            placeholder="0000000000"
             value={formData.mobileNo}
             onChange={handleChange}
           />
           <Smartphone className="absolute right-6 " size={20} />
         </div>
-        <Button
-          type="submit"
-          className="flex items-center gap-x-1 max-w-[166px] bg-violet-500 rounded-3xl shadow hover:bg-violet-600"
-        >
-          Submit
-          <ArrowRightIcon size={20} />
-        </Button>
+        <div className="relative flex gap-3 items-center">
+          <div className="w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+            Gender (M / F)
+          </div>
+          {/* <select
+            className="appearance-none gap-4 w-2/3 text-base text-muted-foreground rounded-2xl flex h-[54px] bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold disabled:opacity-50 p-4 relative" 
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+          >
+            <option value="" className="" disabled hidden>
+              Select Gender
+            </option>
+            <option className="text-primary" value="Male">
+              Male
+            </option>
+            <option className="text-primary" value="Female">
+              Female
+            </option>
+          </select> */}
+          <select
+            className="w-2/3 text-muted-foreground rounded-2xl bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold p-4"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+          >
+            <option value="" hidden disabled>
+              Select Gender
+            </option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+        <div className="flex w-full justify-center items-center">
+          <Button
+            type="submit"
+            className=" w-1/2 py-6 bg-primary rounded-3xl shadow hover:scale-105 ease-in-out font-semibold "
+          >
+            Submit
+            <ArrowRightIcon size={20} />
+          </Button>
+        </div>
       </form>
     </div>
   );

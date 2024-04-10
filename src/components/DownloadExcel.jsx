@@ -3,6 +3,7 @@ import { DatePicker } from "./CreateComplaint";
 import { Input } from "./ui/input";
 import { StudentComplaints } from "./StudentComplaints";
 import { format } from "date-fns";
+import { Button } from "./ui/button";
 
 const DownloadExcel = () => {
   const [allComplaints, setAllComplaints] = useState([]);
@@ -14,7 +15,7 @@ const DownloadExcel = () => {
   const [registrationNo, setRegistrationNo] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [resetDatePicker, setResetDatePicker] = useState(false);
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
@@ -71,15 +72,11 @@ const DownloadExcel = () => {
     setCurrentPage(page);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    filterComplaints();
-  };
-
   const handleReset = () => {
     setFromDate(null);
     setToDate(null);
     setRegistrationNo("");
+    setResetDatePicker(!resetDatePicker);
   };
 
   if (loading) {
@@ -91,68 +88,62 @@ const DownloadExcel = () => {
   }
 
   return (
-    <div>
-      <form
-        onSubmit={handleSubmit}
-        className="py-4 pr-8 pl-8 font-semibold rounded-3xl shadow-md bg-violet-200"
-      >
-        <h2 className="text-lg leading-6 text-violet-500">
-          Filter complaints by
-        </h2>
-        <div className="flex gap-5 justify-between items-center mt-4">
-          <div className="flex flex-col">
+    <div className="">
+      <form className="gap-5 rounded-3xl p-6 flex flex-col  text-white shadow-xl bg-primary">
+        <h2 className="text-lg leading-6">Filter complaints by</h2>
+        <div className="flex gap-4 justify-between">
+          <div className="flex flex-col w-full sm:w-auto">
             <label
               htmlFor="fromDate"
-              className="text-base leading-6 text-violet-500 text-opacity-80 mt-1"
+              className="text-base leading-6 text-opacity-80 mb-1"
             >
               From Date:
             </label>
-            <div className="relative flex items-center mt-2">
-              <DatePicker
-                onSelect={(date) => setFromDate(format(date, "PP"))}
-                selected={fromDate}
-              />
-            </div>
+            <DatePicker
+              onSelect={(date) => setFromDate(format(date, "PP"))}
+              selected={fromDate}
+              reset={resetDatePicker}
+            />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col w-full sm:w-auto">
             <label
               htmlFor="toDate"
-              className="text-base leading-6 text-violet-500 text-opacity-80 mt-1"
+              className="text-base leading-6 text-opacity-80 mb-1"
             >
               To Date:
             </label>
-            <div className="relative flex items-center mt-2">
-              <DatePicker
-                onSelect={(date) => setToDate(format(date, "PP"))}
-                selected={toDate}
-              />
-            </div>
+            <DatePicker
+              onSelect={(date) => setToDate(format(date, "PP"))}
+              selected={toDate}
+              reset={resetDatePicker}
+            />
           </div>
-          <div className="w-1 h-24 bg-black border"></div>
-          <div className="flex flex-col">
+          <div className="w-1 h-24 rounded-full bg-white"></div>
+          <div className="flex flex-col w-full sm:w-auto">
             <label
               htmlFor="registrationNo"
-              className="text-base leading-6 text-violet-500 text-opacity-80 mt-1"
+              className="text-base leading-6 text-opacity-80 mb-1 "
             >
-              Registration No.:
+              Registration Number:
             </label>
             <Input
               type="text"
               id="registrationNo"
               name="registrationNo"
               placeholder="21XYZ00000"
-              value={registrationNo}
-              onChange={(e) => setRegistrationNo(e.target.value.toUpperCase())}
-              className="px-3 py-1.5 text-violet-500 rounded-xl mt-2 border-violet-500"
+              value={registrationNo.toUpperCase()}
+              onChange={(e) => setRegistrationNo(e.target.value)}
+              className=" rounded-2xl  text-base text-primary dark:text-white  font-semibold  px-4 "
             />
           </div>
-          <button
+          <Button
             type="button"
+            variant="destructive"
             onClick={handleReset}
-            className="justify-center px-3.5 py-1.5 text-lg text-white bg-violet-500 rounded-3xl mt-7"
+            className=" p-6 rounded-3xl mt-4 sm:mt-8 hover:scale-105  "
           >
             Reset Filter
-          </button>
+          </Button>
         </div>
       </form>
       <div className="mt-4">

@@ -1,16 +1,21 @@
 "use client";
 import { format } from "date-fns";
+import Image from "next/image";
 import React, { useEffect, useReducer, useState } from "react";
 import CountUp from "react-countup/build";
 
 const Card = ({ name, data }) => {
   return (
-    <div className="max-w-xs rounded-2xl py-4 bg-violet-300  flex flex-col justify-between items-center">
-      <h1 className="text-white font-['Poppins'] text-2xl font-semibold">
-        {name}
-      </h1>
-      <div className="text-4xl leading-none font-bold text-violet-500">
+    <div className="flex flex-col p-4 items-center bg-primary rounded-[50px] w-full">
+      <link
+        href="https://fonts.googleapis.com/css2?family=Train+One&display=swap"
+        rel="stylesheet"
+      ></link>
+      <div className="mt-4 text-4xl text-zinc-300 train-one-regular">
         <CountUp end={data} delay={0.5} duration={1} />
+      </div>
+      <div className="mt-10 w-full text-center  py-4  text-xl bg-zinc-300  rounded-[40px] text-slate-700">
+        {name}
       </div>
     </div>
   );
@@ -28,9 +33,9 @@ const DashboardHeading = () => {
       totalComplaints: "",
       PendingComplaints: "",
       ResolvedComplaints: "",
-      totalStudents: "",
-      MaleStudents: "",
-      FemaleStudents: "",
+      // totalStudents: "",
+      // MaleStudents: "",
+      // FemaleStudents: "",
     }
   );
 
@@ -64,63 +69,68 @@ const DashboardHeading = () => {
       .catch((error) => {
         console.error("Error fetching complaints:", error);
       });
-    fetch(`${process.env.SERVER_APP_URL}/faculty/students`)
-      .then((response) => response.json())
-      .then((data) => {
-        let MaleCount = 0;
-        let FemaleCount = 0;
-        data.students.forEach((student) => {
-          if (student.gender === "Male") {
-            MaleCount++;
-          } else if (student.gender === "Female") {
-            FemaleCount++;
-          }
-        });
-        updateTask({
-          totalStudents: data.students.length,
-          MaleStudents: MaleCount,
-          FemaleStudents: FemaleCount,
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching students:", error);
-      });
+    // fetch(`${process.env.SERVER_APP_URL}/faculty/students`)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     let MaleCount = 0;
+    //     let FemaleCount = 0;
+    //     data.students.forEach((student) => {
+    //       if (student.gender === "Male") {
+    //         MaleCount++;
+    //       } else if (student.gender === "Female") {
+    //         FemaleCount++;
+    //       }
+    //     });
+    //     updateTask({
+    //       totalStudents: data.students.length,
+    //       MaleStudents: MaleCount,
+    //       FemaleStudents: FemaleCount,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching students:", error);
+    //   });
   }, []);
 
   return (
     <div>
-      <div className="pr-14 pl-16 rounded-3xl shadow-2xl max-md:px-5 bg-gradient-to-r from-violet-500 to-violet-400">
-        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          <div className="flex flex-col w-[69%] max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col self-stretch my-auto text-base text-white text-opacity-80 max-md:mt-10 max-md:max-w-full">
-              <div className="max-md:max-w-full">
+      <div className="relative flex ">
+        {/* Image */}
+        <div className="absolute w-1/2 inset-y-0 right-0  z-10 mr-10   max-xl:hidden">
+          <img
+            loading="lazy"
+            src="/new_img.png"
+            // width={1440}
+            // height={50}
+            className="h-full w-full object-cover  "
+            alt="College Student"
+          />
+        </div>
+        {/* Box */}
+        <div className="w-full pr-14 pl-12 mt-20  max-xl:mt-4 rounded-3xl shadow-2xl max-md:px-5 bg-primary z-0 ">
+          <div className="flex py-6 justify-between max-md:ml-0 max-md:w-full">
+            <div className="flex flex-col  self-stretch mt-4 text-base text-white dark:text-zinc-300 text-opacity-80 max-md:mt-10 max-md:max-w-full">
+              <h2 className="text-xs max-md:max-w-full ">
                 {format(currentTime, "PPP p")}
-              </div>
-              <div className="mt-16 mr-auto text-3xl font-semibold text-center text-white max-md:mt-10 max-md:max-w-full">
-                Welcome back,
-              </div>
-              <div className="max-md:max-w-full">
+              </h2>
+              <h1 className="mt-3 mr-auto italic text-3xl font-thin   font-['Poppins'] max-md:max-w-full">
+                Welcome back, <a className=" not-italic font-thin">Aneesh</a>
+              </h1>
+              <h3 className="max-md:max-w-full  ">
                 Always stay informed with the latest updates on your portal!
-              </div>
+              </h3>
             </div>
-          </div>
-          <div className="flex flex-col w-[50%] max-md:ml-0 max-md:w-full">
-            <img
-              loading="lazy"
-              src="/CollegeStudent.png"
-              className=" w-full h-[250px] max-w-[450px] min-h-[250px] max-md:mt-10"
-            />
           </div>
         </div>
       </div>
 
-      <div className="pl-10 grid grid-cols-3 mt-4 gap-y-4">
+      <div className="flex w-full flex-row mt-10 gap-8 justify-between">
         <Card name={"Total Complaint"} data={`${task.totalComplaints}`} />
         <Card name={"Pending Complaint"} data={`${task.PendingComplaints}`} />
         <Card name={"Resolved Complaint"} data={`${task.ResolvedComplaints}`} />
-        <Card name={"Total Students"} data={`${task.totalStudents}`} />
-        <Card name={"Male Students"} data={`${task.MaleStudents}`} />
-        <Card name={"Female Students"} data={`${task.FemaleStudents}`} />
+        {/* <Card name={"Total Students"} data={`${task.totalStudents}`} /> */}
+        {/* <Card name={"Male Students"} data={`${task.MaleStudents}`} />
+        <Card name={"Female Students"} data={`${task.FemaleStudents}`} /> */}
       </div>
     </div>
   );

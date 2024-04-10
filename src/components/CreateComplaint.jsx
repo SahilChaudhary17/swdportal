@@ -1,18 +1,25 @@
 "use client";
 import * as React from "react";
 import jwt from "jsonwebtoken";
-import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { User, MailIcon, Smartphone, Hash, MessageSquare } from "lucide-react";
+import {
+  User,
+  MailIcon,
+  Smartphone,
+  Hash,
+  MessageSquare,
+  CalendarCheckIcon,
+  MessageSquareMore,
+} from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Calendar } from "./ui/calendar";
 import HeadingCard from "./HeadingCard";
-import {Toast} from './Toast'
-export const DatePicker = ({ onSelect }) => {
+import { Toast } from "./Toast";
+export const DatePicker = ({ onSelect, reset }) => {
   const [date, setDate] = useState();
 
   const handleDateSelect = (date) => {
@@ -20,18 +27,27 @@ export const DatePicker = ({ onSelect }) => {
     onSelect(date);
   };
 
+  React.useEffect(() => {
+    
+    if (reset) {
+      setDate(undefined);
+    }
+  }, [reset]);
+
   return (
     <Popover className=" ">
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
-          className="flex h-[54px] w-full px-8 py-2 justify-start text-left rounded-2xl border border-violet-500"
+          className="flex justify-start gap-2 h-[54px] w-full rounded-2xl border border-input bg-background px-8 py-2 text-base  "
         >
-          <CalendarIcon className="mr-2 h-4 w-4 text-gray-500" size={20} />
+          <CalendarCheckIcon className=" text-muted-foreground" size={20} />
           {date ? (
-            <span className="">{format(date, "PPP")}</span>
+            <span className="text-primary dark:text-white">
+              {format(date, "PPP")}
+            </span>
           ) : (
-            <span className="text-gray-500">Pick a date</span>
+            <span className="text-muted-foreground">Pick a date</span>
           )}
         </Button>
       </PopoverTrigger>
@@ -49,8 +65,8 @@ export const DatePicker = ({ onSelect }) => {
     </Popover>
   );
 };
-const CreateComplaint = () => {
 
+const CreateComplaint = () => {
   const token = localStorage.getItem("complaintToken");
   const decodedToken = jwt.decode(token);
   const [formData, setFormData] = useState({
@@ -63,6 +79,8 @@ const CreateComplaint = () => {
     description: "",
     facultyName: decodedToken.name,
     dateTime: "",
+    remark: "",
+    IdCardStatus: "",
   });
 
   const handleChange = (e) => {
@@ -102,7 +120,7 @@ const CreateComplaint = () => {
       }
     } catch (error) {
       // console.error("Error fetching student details:", error);
-      Toast.fire({ 
+      Toast.fire({
         icon: "error",
         title: error.message,
       });
@@ -127,9 +145,9 @@ const CreateComplaint = () => {
     );
 
     if (!isFormComplete) {
-      Toast.fire({ 
+      Toast.fire({
         icon: "warning",
-        title: 'Please fill in all the details before submitting.',
+        title: "Please fill in all the details before submitting.",
       });
       // alert("Please fill in all the details before submitting.");
       return;
@@ -150,14 +168,14 @@ const CreateComplaint = () => {
       if (!response.ok) {
         throw new Error(`Submission failed: ${data.message}`);
       }
-      Toast.fire({ 
+      Toast.fire({
         icon: "success",
         title: data.message,
       });
       // alert(data.message);
     } catch (error) {
       // alert("Error submitting form:", error);
-      Toast.fire({ 
+      Toast.fire({
         icon: "error",
         title: error.message,
       });
@@ -176,9 +194,12 @@ const CreateComplaint = () => {
               placeholder="Registration Number"
               value={formData.registrationNumber}
               onChange={handleChange}
-              className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+              className="rounded-2xl  text-base font-semibold  px-4 "
             />
-            <Hash className="absolute right-6 text-gray-500" size={20} />
+            <Hash
+              className="absolute right-6 text-muted-foreground"
+              size={20}
+            />
           </div>
           <div className="relative flex items-center gap-4 justify-between">
             <div className="flex w-full relative items-center">
@@ -188,13 +209,16 @@ const CreateComplaint = () => {
                 placeholder="Student Name"
                 value={formData.studentName}
                 onChange={handleChange}
-                className="w-full rounded-2xl border border-violet-500 text-violet-400 font-semibold font-['Poppins'] px-4 py-2"
+                className="rounded-2xl  text-base font-semibold  px-4 "
               />
-              <User className="absolute right-6 text-gray-500" size={20} />
+              <User
+                className="absolute right-6 text-muted-foreground"
+                size={20}
+              />
             </div>
-            <div className="">
+            <div className=" flex relative items-center">
               <select
-                className="appearance-none  text-gray-500  rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-violet-500 border font-semibold font-['Poppins'] disabled:opacity-50 py-2 px-8 dark:text-gray-400"
+                className="appearance-none text-base text-muted-foreground rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-8"
                 name="gender"
                 value={formData.gender}
                 onChange={handleChange}
@@ -216,9 +240,12 @@ const CreateComplaint = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+              className=" rounded-2xl  text-base font-semibold  px-4 "
             />
-            <MailIcon className="absolute right-6 text-gray-500" size={20} />
+            <MailIcon
+              className="absolute right-6 text-muted-foreground"
+              size={20}
+            />
           </div>
           <div className="relative flex items-center ">
             <Input
@@ -227,9 +254,12 @@ const CreateComplaint = () => {
               placeholder="Mobile Number"
               value={formData.studentMobileNo}
               onChange={handleChange}
-              className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+              className=" rounded-2xl  text-base font-semibold  px-4 "
             />
-            <Smartphone className="absolute right-6 text-gray-500" size={20} />
+            <Smartphone
+              className="absolute right-6 text-muted-foreground"
+              size={20}
+            />
           </div>
         </div>
         <div className="relative flex items-center ">
@@ -239,7 +269,7 @@ const CreateComplaint = () => {
             placeholder="Complaint Name"
             value={formData.title}
             onChange={handleChange}
-            className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+            className=" rounded-2xl  text-base font-semibold  px-4 "
           />
         </div>
         <div className="relative flex items-center">
@@ -248,12 +278,44 @@ const CreateComplaint = () => {
             placeholder="Complaint Description"
             value={formData.description}
             onChange={handleChange}
-            className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 "
+            className=" rounded-2xl  text-base font-semibold  px-4 "
           />
           <MessageSquare
-            className="absolute right-6 top-4  text-gray-500"
+            className="absolute right-6 top-4 text-muted-foreground"
             size={20}
           />
+        </div>
+        <div className="relative flex items-center gap-4 justify-between">
+          <div className="flex w-1/2 relative items-center">
+            <Input
+              type="text"
+              name="remark"
+              placeholder="Remarks"
+              value={formData.remark}
+              onChange={handleChange}
+              className="rounded-2xl  text-base font-semibold  px-4 "
+            />
+            <MessageSquareMore
+              className="absolute right-6 text-muted-foreground"
+              size={20}
+            />
+          </div>
+          <div className=" flex w-1/2 relative items-center">
+            <select
+              className="appearance-none w-full text-base text-muted-foreground  rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-8"
+              name="IdCardStatus"
+              value={formData.IdCardStatus}
+              onChange={handleChange}
+            >
+              <option value="" disabled hidden>
+                Select ID Status
+              </option>
+              <option className="" value="Taken">
+                ID Taken
+              </option>
+              <option value="Returned Back">ID Returned Back</option>
+            </select>
+          </div>
         </div>
         <div className="flex  gap-4 items-center w-full">
           <div className="relative flex-1 items-center   ">
@@ -267,17 +329,20 @@ const CreateComplaint = () => {
               value={formData.facultyName}
               onChange={handleChange}
               disabled
-              className=" rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins'] px-4 py-2"
+              className=" rounded-2xl  text-base font-semibold  px-4"
             />
-            <User className="absolute right-6 text-gray-500" size={20} />
+            <User
+              className="absolute right-6 text-muted-foreground"
+              size={20}
+            />
           </div>
+          <Button
+            type="submit"
+            className="w-1/3 py-6 bg-primary rounded-3xl shadow hover:scale-105 ease-in font-semibold "
+          >
+            Submit
+          </Button>
         </div>
-        <Button
-          type="submit"
-          className=" flex items-center gap-x-1 max-w-[166px] bg-violet-500 rounded-3xl shadow hover:bg-violet-600 px-4 py-2"
-        >
-          Submit
-        </Button>
       </form>
     </div>
   );

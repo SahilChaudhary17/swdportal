@@ -8,6 +8,7 @@ import {
   Hash,
   MailIcon,
   MessageSquare,
+  MessageSquareMore,
   MoveLeft,
   Smartphone,
   User,
@@ -28,6 +29,8 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
     facultyName: selectedComplaint.facultyName,
     dateTime: selectedComplaint.dateTime,
     status: selectedComplaint.status,
+    IdCardStatus: selectedComplaint.IdCardStatus,
+    remark: selectedComplaint.remark,
     modifiedBy: decodedToken.name,
   });
 
@@ -96,7 +99,7 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
+      {/* <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div className="relative flex items-center">
             <Input
@@ -106,7 +109,7 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
               value={formData.registrationNumber}
               onChange={handleChange}
               disabled
-              className="rounded-2xl disabled:opacity-75 border border-violet-500 text-violet-400 font-semibold font-['Poppins'] px-4 py-2"
+              className="rounded-2xl  text-base font-semibold  px-4"
             />
             <Hash className="absolute right-6 text-gray-500" size={20} />
           </div>
@@ -119,26 +122,18 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
                 disabled
                 value={formData.studentName}
                 onChange={handleChange}
-                className="w-full disabled:opacity-75 rounded-2xl border border-violet-500 text-violet-400 font-semibold font-['Poppins'] px-4 py-2"
+                className="rounded-2xl  text-base font-semibold  px-4"
               />
               <User className="absolute right-6 text-gray-500" size={20} />
             </div>
             <div className="">
-              <select
-                className="appearance-none disabled:opacity-75 text-gray-500  rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-violet-500 border font-semibold font-['Poppins'] py-2 px-8 dark:text-gray-400"
+              <Input
+                className="rounded-2xl  text-base font-semibold  px-4"
                 name="gender"
                 value={formData.gender}
                 disabled
                 onChange={handleChange}
-              >
-                <option value="" disabled hidden>
-                  Select Gender
-                </option>
-                <option className="" value="Male">
-                  Male
-                </option>
-                <option value="Female">Female</option>
-              </select>
+              />
             </div>
           </div>
           <div className="relative flex items-center">
@@ -232,6 +227,169 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
           >
             Save Changes
           </Button>
+        </div>
+      </form> */}
+      {/* <Button className="w-fit mr-8 mb-4 hover:scale-105" onClick={() => onBack(null)}>
+              <MoveLeft className="text-white" size={20} />
+            </Button> */}
+      <form onSubmit={handleSubmit} className="flex flex-col gap-y-4  ">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="relative flex items-center ">
+            <Input
+              value={formData.registrationNumber}
+              disabled
+              className="rounded-2xl  text-base font-semibold  px-4 "
+            />
+            <Hash
+              className="absolute right-6 text-muted-foreground"
+              size={20}
+            />
+          </div>
+          <div className="relative flex items-center gap-4 justify-between">
+            <div className="flex w-full relative items-center">
+              <Input
+                disabled
+                value={formData.studentName}
+                className="rounded-2xl  text-base font-semibold  px-4 "
+              />
+              <User
+                className="absolute right-6 text-muted-foreground"
+                size={20}
+              />
+            </div>
+            <div className=" flex relative items-center">
+              <Input
+                disabled
+                className="rounded-2xl  text-base font-semibold  px-4"
+                value={formData.gender}
+              />
+            </div>
+          </div>
+          <div className="relative flex items-center ">
+            <Input
+              disabled
+              value={formData.email}
+              className=" rounded-2xl  text-base font-semibold  px-4 "
+            />
+            <MailIcon
+              className="absolute right-6 text-muted-foreground"
+              size={20}
+            />
+          </div>
+          <div className="relative flex items-center gap-4 justify-between">
+            <div className="flex w-full relative items-center">
+              <Input
+                disabled
+                value={formData.studentMobileNo}
+                className="rounded-2xl  text-base font-semibold  px-4 "
+              />
+              <Smartphone
+                className="absolute right-6 text-muted-foreground"
+                size={20}
+              />
+            </div>
+            <div className=" flex relative items-center">
+              <Input
+                disabled
+                className="rounded-2xl  text-base font-semibold  px-4"
+                value={formData.dateTime.substr(0, 10)}
+              />
+              <Calendar
+                className="absolute right-6 text-muted-foreground"
+                size={20}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="relative flex items-center ">
+          <Input
+            type="text"
+            name="title"
+            placeholder="Complaint Name"
+            value={formData.title}
+            onChange={handleChange}
+            className=" rounded-2xl  text-base font-semibold  px-4 "
+          />
+        </div>
+        <div className="relative flex items-center">
+          <Textarea
+            name="description"
+            placeholder="Complaint Description"
+            value={formData.description}
+            onChange={handleChange}
+            className=" rounded-2xl  text-base font-semibold  px-4 "
+          />
+          <MessageSquare
+            className="absolute right-6 top-4 text-muted-foreground"
+            size={20}
+          />
+        </div>
+        <div className="relative flex items-center gap-4 justify-between">
+          <div className="flex w-1/2 relative items-center">
+            <Input
+              type="text"
+              name="remark"
+              placeholder="Remarks"
+              value={formData.remark}
+              onChange={handleChange}
+              className="rounded-2xl  text-base font-semibold  px-4 "
+            />
+            <MessageSquareMore
+              className="absolute right-6 text-muted-foreground"
+              size={20}
+            />
+          </div>
+          <div className=" flex w-1/2 relative items-center">
+            <select
+              className="appearance-none w-full text-base text-muted-foreground  rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-8"
+              name="IdCardStatus"
+              value={formData.IdCardStatus}
+              onChange={handleChange}
+            >
+              <option value="" disabled hidden>
+                Select ID Status
+              </option>
+              <option className="" value="Taken">
+                ID Taken
+              </option>
+              <option value="Returned Back">ID Returned Back</option>
+            </select>
+          </div>
+        </div>
+        <div className="relative flex items-center gap-4 justify-between">
+          <div className="flex w-1/2 relative items-center justify-between">
+            <Button
+              className="w-fit p-6  hover:scale-105"
+              onClick={() => onBack(null)}
+            >
+              <MoveLeft className="text-white" size={25} />
+            </Button>
+            <Button
+              type="button"
+              onClick={handleResolve}
+              className=" rounded-2xl shadow hover:scale-105 p-6 bg-green-500  hover:bg-green-600 "
+            >
+              Mark as Resolved
+            </Button>
+            <Button
+              type="submit"
+              variant='default'
+              className=" rounded-2xl shadow hover:scale-105 p-6"
+            >
+              Save Changes
+            </Button>
+          </div>
+          <div className="flex w-1/2 relative items-center ">
+            <Input
+              value={formData.facultyName}
+              disabled
+              className=" rounded-2xl  text-base font-semibold  px-4"
+            />
+            <User
+              className="absolute right-6 text-muted-foreground"
+              size={20}
+            />
+          </div>
         </div>
       </form>
     </div>

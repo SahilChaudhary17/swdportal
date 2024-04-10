@@ -1,6 +1,7 @@
 .sidebar {
   align-items: center;
-  background: linear-gradient(to top, #915fe2, #E2D4F7 280%);
+  /* background: linear-gradient(to top, #915fe2, #E2D4F7 280%); */
+  background: #27344f;
   border-radius: 24px;
   display: flex;
   flex-direction: column;
@@ -14,7 +15,7 @@
 .graduation-cap-container {
   height: 9vw;
   width: 9vw;
-  background: linear-gradient(#915fe2, #7042C0 80%);
+  /* background: linear-gradient(#915fe2, #7042C0 80%); */
   border-radius: 32px;
   display: flex;
   justify-content: center;
@@ -29,6 +30,7 @@
 
 .menu {
   margin-top: 5vh;
+  text-align: right;
 }
 
 .menu-item {
@@ -41,6 +43,7 @@
   font-size: 16px;
   height: 25px;
   margin-bottom: 2.5vh;
+  /* margin-left: 2.5vh; */
   width: 11vw;
   transition: all 0.2s ease;
 }

@@ -14,6 +14,7 @@ export default function Home() {
   }, []); 
   return (
     <div>
+      {/* <link href="https://fonts.googleapis.com/css2?family=Train+One&display=swap" rel="stylesheet"></link> */}
       <Dashboard/>
     </div>
   );

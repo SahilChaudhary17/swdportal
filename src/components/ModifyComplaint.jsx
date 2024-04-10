@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Input } from "./ui/input";
 import HeadingCard from "./HeadingCard";
 import ModifyForm from "./ModifyForm";
-
+import { Toast } from "./Toast";
+import { Button } from "./ui/button";
 const ModifyComplaint = () => {
   return (
     <div>
@@ -18,7 +19,7 @@ const StatusIndicator = ({ status }) => {
   const colorClass = status === "Resolved" ? "bg-green-500" : "bg-amber-500";
   return (
     <div
-      className={`shrink-0 rounded-3xl ${colorClass} bg-opacity-50 h-[39px] w-[39px]`}
+      className={`shrink-0 rounded-3xl ${colorClass} bg-opacity-50 h-6 w-6`}
     />
   );
 };
@@ -29,18 +30,21 @@ const ComplaintCard = ({ complaint, onSelectComplaint }) => {
   };
 
   return (
-    <div class=" bg-violet-500 bg-opacity-30 rounded-3xl shadow-lg px-6 py-6 text-center max-md:w-full w-{50vw} ">
-      <h2 class="text-lg font-bold text-violet-700 leading-6">
-         {complaint.title}
-      </h2>
-      <p class="mt-4 text-gray-500">Date: {complaint.dateTime.substr(0, 10)}</p>
-      <div class="flex items-center gap-2 justify-between mt-4">
-        <button
+    <div className="bg-secondary rounded-3xl shadow-lg p-4 text-center max-w-96 flex flex-col">
+      <div className="flex-grow">
+        <h2 className="break-words text-ellipsis font-medium">
+          {complaint.title}
+        </h2>
+      </div>
+      <p className="mt-4">Date: {complaint.dateTime.substr(0, 10)}</p>
+
+      <div class="mt-4 flex items-center gap-2 justify-between">
+        <Button
           onClick={handleModify}
-          class="bg-violet-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
+          className="bg-primary p-6 rounded-3xl shadow hover:scale-105 font-semibold"
         >
           Modify
-        </button>
+        </Button>
         <StatusIndicator status={complaint.status} />
       </div>
     </div>
@@ -73,17 +77,20 @@ const ComplaintsList = ({
     }
   };
   return (
-    <div className="w-full">
-      <section className="flex gap-5  max-md:flex-col max-md:gap-0 ">
-        {currentComplaints.map((complaint, index) => (
-          <ComplaintCard
-            key={index}
-            complaint={complaint}
-            onSelectComplaint={onSelectComplaint}
-          />
-        ))}
-      </section>
-      <div className="items-center relative align-bottom  mt-4 ">
+    <div className=" flex flex-col">
+      <div className="max-w-screen-xl flex-grow ">
+        <section className="grid grid-flow-col gap-5">
+          {currentComplaints.map((complaint, index) => (
+            <ComplaintCard
+              key={index}
+              complaint={complaint}
+              onSelectComplaint={onSelectComplaint}
+            />
+          ))}
+        </section>
+      </div>
+      {/* prev-next button div */}
+      <div className="flex items-center mt-6">
         <button
           onClick={handlePrevPage}
           disabled={currentPage === 1}
@@ -119,7 +126,10 @@ const MyComponent = () => {
   };
   const fetchComplaints = async () => {
     if (!registrationNumber || registrationNumber.length !== 10) {
-      alert("Please enter a valid 10-digit registration number.");
+      Toast.fire({
+        icon: "warning",
+        title: "Please enter a valid 00XYZ00000 format registration number.",
+      });
       return;
     }
 
@@ -136,7 +146,11 @@ const MyComponent = () => {
       setComplaints(data.complaints);
       setTotalComplaints(data.complaints.length);
     } catch (error) {
-      console.error("Error fetching complaints:", error);
+      // console.error("Error fetching complaints:", error);
+      Toast.fire({
+        icon: "error",
+        title: error.message,
+      });
     } finally {
       setLoading(false);
       setSubmitted(true);
@@ -157,16 +171,21 @@ const MyComponent = () => {
       ) : (
         <div>
           <header className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
-            <Input
-              className="rounded-2xl max-w-sm flex-1 w-fit border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
-              type="text"
-              name="regNumber"
-              placeholder="Registration Number"
-              value={registrationNumber}
-              onChange={(e) => setRegistrationNumber(e.target.value)}
-            />
+            <div className="relative flex gap-3 items-center">
+              <div className="w-1/2 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+                Registration Number
+              </div>
+              <Input
+                className="rounded-2xl w-1/2 text-base font-semibold  px-4"
+                type="text"
+                name="regNumber"
+                placeholder="00XYZ00000"
+                value={registrationNumber}
+                onChange={(e) => setRegistrationNumber(e.target.value)}
+              />
+            </div>
             <button
-              className="justify-center  bg-violet-400 px-7 py-4 text-base text-white rounded-3xl shadow-2xl max-md:px-5"
+              className="bg-primary px-4 py-3 rounded-3xl text-white shadow hover:scale-105 ease-in font-semibold"
               onClick={fetchComplaints}
               disabled={!registrationNumber || loading}
             >
@@ -185,10 +204,12 @@ const MyComponent = () => {
                   onSelectComplaint={handleSelectComplaint}
                 />
               ) : (
-                <div>No complaints exist for this registration number.</div>
+                <div className="text-primary text-xl">
+                  No complaints exist for this registration number.
+                </div>
               )
             ) : (
-              <div>
+              <div className="text-primary text-xl">
                 Please enter the registration number to select the complaints.
               </div>
             )}

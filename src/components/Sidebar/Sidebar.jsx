@@ -24,7 +24,7 @@ function Sidebar({ active, setActive }) {
   };
 
   return (
-    <div className="sidebar">
+    <div className="sidebar dark:bg-primary">
       <div className="graduation-cap-container">
         <img src="/VITB_seal_white.png" alt="VIT Bhopal" />
         {/* <FaGraduationCap  className='h-[8vw] w-[8vw] text-white' /> */}

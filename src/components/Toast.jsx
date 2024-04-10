@@ -11,8 +11,8 @@ const Toast = Swal.mixin({
   },
   customClass: {
     container: 'p-4 ',
-    title: "font-semibold text-primary font-['Poppins']", 
-    timerProgressBar: 'h-1 bg-violet-500 rounded-full', 
+    title: "font-semibold text-primary ", 
+    timerProgressBar: 'h-1 bg-primary rounded-full', 
   }
 });
 

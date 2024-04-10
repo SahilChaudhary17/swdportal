@@ -32,7 +32,7 @@ const Navbar = ({ setActive, search, setSearch }) => {
   }
 
   return (
-    <div className="  flex flex-col md:flex-row justify-between items-center gap-5">
+    <div className="  flex flex-col md:flex-row justify-between items-center gap-5 font-sans">
       <div className="flex-1 flex-grow">
         <Input
           id="Search"
@@ -53,7 +53,7 @@ const Navbar = ({ setActive, search, setSearch }) => {
               height={50}
               alt="User Image"
               src={`/${userData.name}.jpg`}
-              className="rounded-full  border-violet-500 shrink-0 border-4"
+              className="rounded-full  border-primary shrink-0 border-4"
             />
             <div className="flex flex-col ml-2 items-center">
               <div className="font-medium text-black dark:text-gray-200">
