@@ -1,14 +1,7 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import {
-  User,
-  MailIcon,
-  ArrowRightIcon,
-  Smartphone,
-  Hash,
-  MoveDown,
-} from "lucide-react";
+import { User, MailIcon, ArrowRightIcon, Smartphone, Hash } from "lucide-react";
 import HeadingCard from "./HeadingCard";
 import { Toast } from "./Toast";
 const AddStudent = () => {
@@ -166,24 +159,8 @@ const AddStudent = () => {
           <div className="w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
             Gender (M / F)
           </div>
-          {/* <select
-            className="appearance-none gap-4 w-2/3 text-base text-muted-foreground rounded-2xl flex h-[54px] bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold disabled:opacity-50 p-4 relative" 
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-          >
-            <option value="" className="" disabled hidden>
-              Select Gender
-            </option>
-            <option className="text-primary" value="Male">
-              Male
-            </option>
-            <option className="text-primary" value="Female">
-              Female
-            </option>
-          </select> */}
           <select
-            className="w-2/3 text-muted-foreground rounded-2xl bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold p-4"
+            className="appearance-none w-2/3 text-muted-foreground rounded-2xl bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold p-4"
             name="gender"
             value={formData.gender}
             onChange={handleChange}

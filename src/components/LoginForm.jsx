@@ -9,7 +9,6 @@ import Link from "next/link";
 import { Toast } from "./Toast";
 const LoginForm = () => {
   const router = useRouter();
-  const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -92,9 +91,6 @@ const LoginForm = () => {
         onSubmit={handleSubmit}
         className="gap-4 flex flex-col max-w-md border rounded-3xl shadow-2xl p-12 "
       >
-        {/* {error && (
-          <p className="text-center bg-red-300 py-4 mb-6 rounded">{error}</p>
-        )} */}
         <div className="relative flex items-center rounded-2xl border border-violet-500">
           <Input
             className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"

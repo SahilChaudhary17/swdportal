@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import ThemeToggler from "./ThemeToggler";
 import { Input } from "./ui/input";
@@ -6,17 +5,13 @@ import Image from "next/image";
 const Navbar = ({ setActive, search, setSearch, token }) => {
   const [userData, setUserData] = useState({ name: "", post: "", image: "" });
   useEffect(() => {
-    
-      try {
-        setUserData({
-          name: token.name,
-          post: token.post,
-          image: token.name + ".jpg",
-        });
-      } catch (error) {
-        console.error("Error decoding token:", error);
-      }
-    
+    if (token) {
+      setUserData({
+        name: token.name,
+        post: token.post,
+        image: token.name + ".jpg",
+      });
+    }
   }, [token]);
 
   function handleSearch(e) {

@@ -20,6 +20,12 @@ const Card = ({ name, data }) => {
   );
 };
 
+const formatUserName = (userName) => {
+  const trimmedName = userName.trim(); // Trim the userName
+  const firstWord = trimmedName.split(" ")[0]; // Get the first word
+  const formattedName = firstWord.charAt(0).toUpperCase() + firstWord.slice(1).toLowerCase(); // Capitalize the first letter and lowercase the rest
+  return formattedName;
+};
 const DashboardHeading = ({userName}) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -88,8 +94,8 @@ const DashboardHeading = ({userName}) => {
               <h2 className="text-xs max-md:max-w-full ">
                 {format(currentTime, "PPP p")}
               </h2>
-              <h1 className="mt-3 mr-auto italic text-3xl font-thin   font-['Poppins'] max-md:max-w-full">
-                Welcome back, <a className=" not-italic font-thin">{userName}</a>
+              <h1 className="mt-3 mr-auto italic text-3xl font-thin font-['Poppins'] max-md:max-w-full">
+                Welcome back, {userName ? <a className=" not-italic font-thin">{formatUserName(userName)}</a>:null}
               </h1>
               <h3 className="max-md:max-w-full  ">
                 Always stay informed with the latest updates on your portal!

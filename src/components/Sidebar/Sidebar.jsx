@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import "./sidebar.css";
 import { IconContext } from "react-icons";
 import { MdSpaceDashboard } from "react-icons/md";
 import { MdLibraryBooks } from "react-icons/md";
-import { HiPencil, HiPlus, HiUserPlus } from "react-icons/hi2";
+import { HiPencil, HiUserPlus } from "react-icons/hi2";
 import { BiSolidDownload, BiSolidMessageAltDetail } from "react-icons/bi";
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { FaSignOutAlt } from "react-icons/fa";
