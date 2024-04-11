@@ -19,6 +19,7 @@ function Dashboard() {
   const [active, setActive] = useState("Dashboard");
   const [storedActive, setStoredActive] = useState(null);
 
+  const router = useRouter();
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("complaintToken");
@@ -34,7 +35,6 @@ function Dashboard() {
           setActive(initialActive);
         }
       } else {
-        const router = useRouter();
         router.push("/login");
       }
     }
