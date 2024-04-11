@@ -4,6 +4,7 @@ import { Input } from "./ui/input";
 import { StudentComplaints } from "./StudentComplaints";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
+import { BallTriangle } from "react-loader-spinner";
 
 const DownloadExcel = () => {
   const [allComplaints, setAllComplaints] = useState([]);
@@ -34,7 +35,9 @@ const DownloadExcel = () => {
       } catch (error) {
         setError(error.message);
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       }
     };
 
@@ -80,7 +83,20 @@ const DownloadExcel = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center ">
+        <BallTriangle
+          height={100}
+          width={100}
+          radius={5}
+          color="#C5D4EA"
+          ariaLabel="ball-triangle-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
   }
 
   if (error) {

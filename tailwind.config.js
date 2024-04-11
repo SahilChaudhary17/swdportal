@@ -11,13 +11,12 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
-        sm: '640px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1400px',
-
+        sm: '520px',
+        md: '640px',
+        lg: '768px',
+        xl: '1024px',
       },
     },
     extend: {
@@ -77,5 +76,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate")]
 }
