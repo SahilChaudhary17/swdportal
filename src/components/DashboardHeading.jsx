@@ -1,6 +1,5 @@
 "use client";
 import { format } from "date-fns";
-import Image from "next/image";
 import React, { useEffect, useReducer, useState } from "react";
 import CountUp from "react-countup/build";
 
@@ -21,7 +20,7 @@ const Card = ({ name, data }) => {
   );
 };
 
-const DashboardHeading = () => {
+const DashboardHeading = ({userName}) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   const [task, updateTask] = useReducer(
@@ -33,9 +32,6 @@ const DashboardHeading = () => {
       totalComplaints: "",
       PendingComplaints: "",
       ResolvedComplaints: "",
-      // totalStudents: "",
-      // MaleStudents: "",
-      // FemaleStudents: "",
     }
   );
 
@@ -69,27 +65,6 @@ const DashboardHeading = () => {
       .catch((error) => {
         console.error("Error fetching complaints:", error);
       });
-    // fetch(`${process.env.SERVER_APP_URL}/faculty/students`)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     let MaleCount = 0;
-    //     let FemaleCount = 0;
-    //     data.students.forEach((student) => {
-    //       if (student.gender === "Male") {
-    //         MaleCount++;
-    //       } else if (student.gender === "Female") {
-    //         FemaleCount++;
-    //       }
-    //     });
-    //     updateTask({
-    //       totalStudents: data.students.length,
-    //       MaleStudents: MaleCount,
-    //       FemaleStudents: FemaleCount,
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching students:", error);
-    //   });
   }, []);
 
   return (
@@ -114,7 +89,7 @@ const DashboardHeading = () => {
                 {format(currentTime, "PPP p")}
               </h2>
               <h1 className="mt-3 mr-auto italic text-3xl font-thin   font-['Poppins'] max-md:max-w-full">
-                Welcome back, <a className=" not-italic font-thin">Aneesh</a>
+                Welcome back, <a className=" not-italic font-thin">{userName}</a>
               </h1>
               <h3 className="max-md:max-w-full  ">
                 Always stay informed with the latest updates on your portal!
@@ -128,9 +103,6 @@ const DashboardHeading = () => {
         <Card name={"Total Complaint"} data={`${task.totalComplaints}`} />
         <Card name={"Pending Complaint"} data={`${task.PendingComplaints}`} />
         <Card name={"Resolved Complaint"} data={`${task.ResolvedComplaints}`} />
-        {/* <Card name={"Total Students"} data={`${task.totalStudents}`} /> */}
-        {/* <Card name={"Male Students"} data={`${task.MaleStudents}`} />
-        <Card name={"Female Students"} data={`${task.FemaleStudents}`} /> */}
       </div>
     </div>
   );

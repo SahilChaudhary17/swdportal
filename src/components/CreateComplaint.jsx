@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import jwt from "jsonwebtoken";
 import { format } from "date-fns";
 import { useState } from "react";
 import { Button } from "./ui/button";
@@ -28,7 +27,6 @@ export const DatePicker = ({ onSelect, reset }) => {
   };
 
   React.useEffect(() => {
-    
     if (reset) {
       setDate(undefined);
     }
@@ -66,9 +64,7 @@ export const DatePicker = ({ onSelect, reset }) => {
   );
 };
 
-const CreateComplaint = () => {
-  const token = localStorage.getItem("complaintToken");
-  const decodedToken = jwt.decode(token);
+const CreateComplaint = ({userName}) => {
   const [formData, setFormData] = useState({
     registrationNumber: "",
     studentName: "",
@@ -77,7 +73,7 @@ const CreateComplaint = () => {
     studentMobileNo: "",
     title: "",
     description: "",
-    facultyName: decodedToken.name,
+    facultyName: userName,
     dateTime: "",
     remark: "",
     IdCardStatus: "",
@@ -137,8 +133,17 @@ const CreateComplaint = () => {
     }));
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [cooldown, setCooldown] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (isSubmitting || cooldown) {
+      return;
+    }
+
+    setIsSubmitting(true); 
 
     const isFormComplete = Object.values(formData).every(
       (value) => value !== ""
@@ -149,7 +154,7 @@ const CreateComplaint = () => {
         icon: "warning",
         title: "Please fill in all the details before submitting.",
       });
-      // alert("Please fill in all the details before submitting.");
+      setIsSubmitting(false); 
       return;
     }
 
@@ -172,16 +177,19 @@ const CreateComplaint = () => {
         icon: "success",
         title: data.message,
       });
-      // alert(data.message);
     } catch (error) {
-      // alert("Error submitting form:", error);
       Toast.fire({
         icon: "error",
         title: error.message,
       });
+    } finally {
+      setCooldown(true);
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setCooldown(false);
+      }, 3000); 
     }
   };
-
   return (
     <div className="w-full">
       <HeadingCard heading={"Add new complaints"} />
@@ -323,11 +331,7 @@ const CreateComplaint = () => {
           </div>
           <div className="relative flex flex-1 items-center ">
             <Input
-              type="text"
-              name="facultyName"
-              placeholder="Complaint By"
               value={formData.facultyName}
-              onChange={handleChange}
               disabled
               className=" rounded-2xl  text-base font-semibold  px-4"
             />
@@ -338,6 +342,7 @@ const CreateComplaint = () => {
           </div>
           <Button
             type="submit"
+            disabled={isSubmitting || cooldown}
             className="w-1/3 py-6 bg-primary rounded-3xl shadow hover:scale-105 ease-in font-semibold "
           >
             Submit

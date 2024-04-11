@@ -1,21 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import jwt from "jsonwebtoken";
-const Profile = () => {
-  const [userData, setUserData] = useState({ name: "", post: "", empId: "" });
-  const [userImage, setUserImage] = useState("Sahil.jpg");
+const Profile = ({token}) => {
+  const [userData, setUserData] = useState({ name: "", post: "", empId: "", img:"" });
   useEffect(() => {
-    const token = localStorage.getItem("complaintToken");
     if (token) {
       try {
-        const decodedToken = jwt.decode(token);
         setUserData({
-          name: decodedToken.name,
-          post: decodedToken.post,
-          empId: decodedToken.empId,
+          name: token.name,
+          post: token.post,
+          empId: token.empId,
+          img:token.name + ".jpg"
         });
-        setUserImage(decodedToken.name + ".jpg");
       } catch (error) {
         console.error("Error decoding token:", error);
       }
@@ -29,7 +25,7 @@ const Profile = () => {
             loading="lazy"
             width={250}
             height={250}
-            src={`/${userImage}`}
+            src={`/${userData.img}`}
             alt="Profile Picture"
             className="self-center max-w-full aspect-square rounded-lg w-[200px]"
           />

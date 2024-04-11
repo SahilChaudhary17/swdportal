@@ -2,29 +2,22 @@
 import React, { useState, useEffect } from "react";
 import ThemeToggler from "./ThemeToggler";
 import { Input } from "./ui/input";
-import jwt from "jsonwebtoken";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-const Navbar = ({ setActive, search, setSearch }) => {
+const Navbar = ({ setActive, search, setSearch, token }) => {
   const [userData, setUserData] = useState({ name: "", post: "", image: "" });
-  const router = useRouter();
   useEffect(() => {
-    const token = localStorage.getItem("complaintToken");
-    if (token) {
+    
       try {
-        const decodedToken = jwt.decode(token);
         setUserData({
-          name: decodedToken.name,
-          post: decodedToken.post,
-          image: decodedToken.name + ".jpg",
+          name: token.name,
+          post: token.post,
+          image: token.name + ".jpg",
         });
       } catch (error) {
         console.error("Error decoding token:", error);
       }
-    } else {
-      router.replace("/login");
-    }
-  }, []);
+    
+  }, [token]);
 
   function handleSearch(e) {
     setActive("View");
