@@ -39,7 +39,7 @@ const Profile = ({ token }) => {
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center text-black">
       <div className="bg-accent flex flex-col gap-12 p-4 md:p-12 rounded-3xl max-w-screen-xl w-full">
         <div className=" md:flex md:flex-row gap-4 rounded-3xl w-full items-center">
           {userData.name && (
@@ -63,7 +63,7 @@ const Profile = ({ token }) => {
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          <h1 className="underline text-lg md:text-xl italic font-thin">
+          <h1 className="underline text-lg md:text-xl italic font-thin dark:text-white">
             Other Users on the portal
           </h1>
           {users
