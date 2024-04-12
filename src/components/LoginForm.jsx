@@ -7,6 +7,7 @@ import { Input } from "./ui/input";
 import { Eye, EyeOff, User } from "lucide-react";
 import Link from "next/link";
 import { Toast } from "./Toast";
+import Image from "next/image";
 const LoginForm = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -62,81 +63,92 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="absolute top-0 left-0 right-0 flex justify-between px-4 py-2">
-        <div className="flex items-center">
-          <a href="/login">
-            <img
+    <div className="flex flex-col h-screen">
+      {/* img div */}
+      <div className="flex flex-row-reverse justify-between w-full px-3 bg-accent">
+        <div className="flex items-center  ">
+          <Link href="/login">
+            <Image
+              width={300}
+              height={50}
+              placeholder="blur"
+              blurDataURL="/"
               src="/SW Logo.png"
               alt="Office of Students' Welfare"
-              className="h-28 w-auto"
+              className="cover "
             />
-          </a>
+          </Link>
         </div>
-        <div className="flex items-center">
-          <a
+        <div className="flex items-center ">
+          <Link
             href="https://vitbhopal.ac.in/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img
+            <Image
+              width={200}
+              height={50}
               src="/vitblogo.png"
               alt="VIT Bhopal University"
-              className="h-24 w-auto"
+              className="cover "
             />
-          </a>
+          </Link>
         </div>
       </div>
-      <form
-        onSubmit={handleSubmit}
-        className="gap-4 flex flex-col max-w-md border rounded-3xl shadow-2xl p-12 "
-      >
-        <div className="relative flex items-center rounded-2xl border border-violet-500">
-          <Input
-            className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
-            type="tel"
-            name="empId"
-            placeholder="Employment Number"
-            value={formData.empId}
-            onChange={handleChange}
-          />
-          <User className="absolute right-6 " size={20} />
-        </div>
-        <div className="relative flex items-center rounded-2xl border border-violet-500">
-          <Input
-            className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="********"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          {showPassword ? (
-            <Eye
-              className="absolute right-6 cursor-pointer"
-              size={20}
-              onClick={handleTogglePassword}
+      <div className="h-5 w-full bg-primary"></div>
+      <div className="w-full flex justify-center   items-center my-auto">
+        <form
+          onSubmit={handleSubmit}
+          className="gap-4 flex flex-col min-w-lg items-center justify-center rounded-3xl shadow-2xl px-16 py-20 bg-primary "
+        >
+        <User className="text-card mb-4" size={100}/>
+          <div className="relative flex items-center rounded-3xl border">
+            <Input
+              className="rounded-2xl border font-semibold "
+              type="text"
+              name="empId"
+              placeholder="Employment Number"
+              value={formData.empId}
+              onChange={handleChange}
             />
-          ) : (
-            <EyeOff
-              className="absolute right-6 cursor-pointer"
-              size={20}
-              onClick={handleTogglePassword}
+            <User className="absolute right-6 " size={20} />
+          </div>
+          <div className="relative flex items-center rounded-2xl border ">
+            <Input
+              className="rounded-2xl  text-base font-semibold  placeholder:text-2xl place "
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="**********"
+              value={formData.password}
+              onChange={handleChange}
             />
-          )}
-        </div>
-        <div className="flex justify-between items-center">
-          <Button
-            type="submit"
-            className="flex items-center gap-x-1 max-w-[250px] bg-gradient-to-r from-violet-500 to-violet-200 rounded-3xl shadow hover:bg-gradient-to-l from-violet-600 to-violet-100 "
-          >
-            Login
-            <ArrowRightIcon size={20} />
-          </Button>
+            {showPassword ? (
+              <Eye
+                className="absolute right-6 cursor-pointer"
+                size={20}
+                onClick={handleTogglePassword}
+              />
+            ) : (
+              <EyeOff
+                className="absolute right-6 cursor-pointer"
+                size={20}
+                onClick={handleTogglePassword}
+              />
+            )}
+          </div>
+          <div className="flex w-full justify-between items-center">
+            <Button
+              type="submit"
+              className="flex items-center gap-1 shadow  rounded-3xl hover:scale-105 bg-white hover:bg-white/90 text-primary "
+            >
+              Login
+              <ArrowRightIcon size={25} />
+            </Button>
 
-          <Link href={"/login/forgot-password"}>Forgot Password?</Link>
-        </div>
-      </form>
+            <Link className="text-card hover:animate-pulse" href={"/login/forgot-password"}>Forgot Password?</Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

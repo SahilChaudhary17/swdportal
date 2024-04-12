@@ -343,7 +343,7 @@ const CreateComplaint = ({userName}) => {
           <Button
             type="submit"
             disabled={isSubmitting || cooldown}
-            className="w-1/3 py-6 bg-primary rounded-3xl shadow hover:scale-105 ease-in font-semibold "
+            className="w-1/3 p-6 bg-primary rounded-3xl shadow hover:scale-105 ease-in font-semibold "
           >
             Submit
           </Button>

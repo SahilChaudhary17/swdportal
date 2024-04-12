@@ -2,16 +2,19 @@
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { User } from "lucide-react";
+import { Eye, EyeOff, User } from "lucide-react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
 import { useRouter } from "next/navigation";
 import { Toast } from "./Toast";
+import Link from "next/link";
+import Image from "next/image";
 const ForgotPasswordForm = () => {
   const [empId, setEmpId] = useState("");
   const [email, setEmail] = useState("");
   const [otp, setOTP] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [step, setStep] = useState(1);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleForgotPassword = async (e) => {
@@ -75,6 +78,10 @@ const ForgotPasswordForm = () => {
     }
   };
 
+  const handleTogglePassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
     try {
@@ -110,82 +117,136 @@ const ForgotPasswordForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="absolute top-0 left-0 right-0 flex justify-between px-4 py-2">
-        <div className="flex items-center">
-          <a href="/login">
-            <img
+    <div className="flex flex-col h-screen">
+      <div className="flex flex-row-reverse justify-between w-full px-3">
+        <div className="flex items-center  ">
+          <Link href="/login">
+            <Image
+              width={300}
+              height={50}
+              placeholder="blur"
+              blurDataURL="/"
               src="/SW Logo.png"
               alt="Office of Students' Welfare"
-              className="h-28 w-auto"
+              className="cover "
             />
-          </a>
+          </Link>
         </div>
-        <div className="flex items-center">
-          <a
+        <div className="flex items-center ">
+          <Link
             href="https://vitbhopal.ac.in/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img
+            <Image
+              width={200}
+              height={50}
               src="/vitblogo.png"
               alt="VIT Bhopal University"
-              className="h-24 w-auto"
+              className="cover "
             />
-          </a>
+          </Link>
         </div>
       </div>
-      <form className="gap-4 flex flex-col max-w-md border rounded-3xl shadow-2xl p-12 ">
-        {step === 1 && (
-          <div className=" flex flex-col gap-6 ">
-            <div className="relative flex   items-center rounded-2xl border border-violet-500">
-              <Input
-                className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
-                type="tel"
-                placeholder="Employment Number"
-                value={empId}
-                onChange={(e) => setEmpId(e.target.value)}
+      <div className="h-5 w-full bg-primary"></div>
+
+      <div className="w-full flex justify-center   items-center my-auto">
+        <form className="gap-4 flex flex-col min-w-lg items-center justify-center rounded-3xl shadow-2xl px-16 py-20 bg-primary ">
+          {step === 1 && (
+            <>
+              <div className="relative flex items-center rounded-3xl border">
+                <Input
+                  className="rounded-2xl border font-semibold "
+                  type="text"
+                  placeholder="Employment Number"
+                  value={empId}
+                  onChange={(e) => setEmpId(e.target.value)}
+                />
+                <User className="absolute right-6 " size={20} />
+              </div>
+              <Button
+                className=" items-center gap-1 shadow w-full hover:scale-105 rounded-3xl bg-white hover:bg-white/90 text-primary "
+                onClick={handleForgotPassword}
+              >
+                Forgot Password
+              </Button>
+            </>
+          )}
+          {step === 2 && (
+            <div className="flex flex-col gap-8 ">
+              <p className="text-white text-left">
+                Please enter the OTP sent to your email:
+              </p>
+              <InputOTP
+                className="justify-evenly "
+                maxLength={4}
+                value={otp}
+                onChange={(newOTP) => setOTP(newOTP)} // Update the onChange handler
+                render={({ slots }) => (
+                  <>
+                    <InputOTPGroup className="flex gap-2">
+                      {slots.map((slot, index) => (
+                        <InputOTPSlot
+                          className="bg-background"
+                          key={index}
+                          {...slot}
+                        />
+                      ))}
+                    </InputOTPGroup>
+                  </>
+                )}
               />
-              <User className="absolute right-6 " size={20} />
+              <Button
+                className="text-primary rounded-3xl hover:scale-105 bg-white hover:bg-white/80"
+                onClick={handleVerifyOTP}
+              >
+                Verify OTP
+              </Button>
             </div>
-            <Button onClick={handleForgotPassword}>Forgot Password</Button>
-          </div>
-        )}
-        {step === 2 && (
-          <div className="flex flex-col gap-8">
-            <p>Please enter the OTP sent to your email:</p>
-            <InputOTP
-              className="justify-evenly"
-              maxLength={4}
-              value={otp}
-              onChange={(newOTP) => setOTP(newOTP)} // Update the onChange handler
-              render={({ slots }) => (
-                <>
-                  <InputOTPGroup className="flex gap-2">
-                    {slots.map((slot, index) => (
-                      <InputOTPSlot key={index} {...slot} />
-                    ))}
-                  </InputOTPGroup>
-                </>
-              )}
-            />
-            <Button onClick={handleVerifyOTP}>Verify OTP</Button>
-          </div>
-        )}
-        {step === 3 && (
-          <div className="flex flex-col gap-8">
-            <p className="text-center">Enter your new password:</p>
-            <Input
-              className="rounded-2xl border border-violet-500 text-violet-400  font-semibold font-['Poppins']"
-              type="password"
-              placeholder="New Password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-            <Button onClick={handleUpdatePassword}>Update Password</Button>
-          </div>
-        )}
-      </form>
+          )}
+          {step === 3 && (
+            <div className="flex flex-col gap-8">
+              <p className="text-left text-white ">Enter your new password:</p>
+              {/* <Input
+                className="rounded-2xl border font-semibold"
+                type="password"
+                placeholder="New Password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              /> */}
+              <div className="relative flex items-center rounded-2xl border ">
+                <Input
+                  className="rounded-2xl  text-base font-semibold  "
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+                {showPassword ? (
+                  <Eye
+                    className="absolute right-6 cursor-pointer"
+                    size={20}
+                    onClick={handleTogglePassword}
+                  />
+                ) : (
+                  <EyeOff
+                    className="absolute right-6 cursor-pointer"
+                    size={20}
+                    onClick={handleTogglePassword}
+                  />
+                )}
+              </div>
+              <Button
+                className="text-primary bg-white hover:scale-105 rounded-3xl hover:bg-white/80"
+                onClick={handleUpdatePassword}
+              >
+                Update Password
+              </Button>
+            </div>
+          )}
+        </form>
+      </div>
     </div>
   );
 };
