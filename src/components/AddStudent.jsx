@@ -91,94 +91,103 @@ const AddStudent = () => {
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full mb-2">
       <HeadingCard heading={"Create A New Student Profile"} />
 
       <form
         onSubmit={handleSubmit}
         className="flex flex-col m-auto gap-y-4 max-w-3xl "
       >
-        <div className="relative flex gap-3 items-center">
-          <div className="w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+        <div className="relative flex flex-col gap-3 sm:flex-row">
+          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
             Registration Number
           </div>
-          <Input
-            className="rounded-2xl w-2/3 text-base font-semibold  px-4"
-            type="text"
-            name="regNumber"
-            placeholder="00XYZ00000"
-            value={formData.regNumber}
-            onChange={handleChange}
-          />
-          <Hash className="absolute right-6" size={20} />
+          <div className="relative flex flex-1 items-center w-full sm:w-2/3">
+            <Input
+              className="rounded-2xl  text-base font-semibold  px-4"
+              type="text"
+              name="regNumber"
+              placeholder="00XYZ00000"
+              value={formData.regNumber}
+              onChange={handleChange}
+            />
+            <Hash className="absolute right-6" size={20} />
+          </div>
         </div>
-        <div className="relative flex gap-3 items-center">
-          <div className="w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+        <div className="relative flex flex-col gap-3 sm:flex-row">
+          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
             Student Name
           </div>
-          <Input
-            className=" rounded-2xl w-2/3 text-base font-semibold  px-4"
-            type="text"
-            name="name"
-            placeholder="John Doe"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          <User className="absolute right-6" size={20} />
+          <div className="relative flex flex-1 items-center w-full sm:w-2/3">
+            <Input
+              className=" rounded-2xl  text-base font-semibold  px-4"
+              type="text"
+              name="name"
+              placeholder="John Doe"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <User className="absolute right-6" size={20} />
+          </div>
         </div>
 
-        <div className="relative flex gap-3 items-center">
-          <div className="w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+        <div className="relative flex flex-col gap-3 sm:flex-row">
+          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
             Student Email
           </div>
-          <Input
-            className=" rounded-2xl w-2/3 text-base font-semibold  px-4"
-            type="email"
-            name="email"
-            placeholder="john_doe@example.com"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <MailIcon className="absolute right-6 " size={20} />
+          <div className="relative flex flex-1 items-center w-full sm:w-2/3">
+            <Input
+              className=" rounded-2xl text-base font-semibold  px-4"
+              type="email"
+              name="email"
+              placeholder="john_doe@example.com"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <MailIcon className="absolute right-6 " size={20} />
+          </div>
         </div>
-        <div className="relative flex gap-3 items-center">
-          <div className="w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+        <div className="relative flex flex-col gap-3 sm:flex-row">
+          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
             Mobile Number
           </div>
-          <Input
-            className="rounded-2xl w-2/3 text-base font-semibold  px-4"
-            type="tel"
-            name="mobileNo"
-            placeholder="0000000000"
-            value={formData.mobileNo}
-            onChange={handleChange}
-          />
-          <Smartphone className="absolute right-6 " size={20} />
+          <div className="relative flex flex-1 items-center w-full sm:w-2/3">
+            <Input
+              className="rounded-2xl text-base font-semibold  px-4"
+              type="tel"
+              name="mobileNo"
+              placeholder="0000000000"
+              value={formData.mobileNo}
+              onChange={handleChange}
+            />
+            <Smartphone className="absolute right-6 " size={20} />
+          </div>
         </div>
-        <div className="relative flex gap-3 items-center">
-          <div className="w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+        <div className="relative flex flex-col gap-3 sm:flex-row">
+          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
             Gender (M / F)
           </div>
-          <select
-            className="appearance-none w-2/3 text-muted-foreground rounded-2xl bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold p-4"
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-          >
-            <option value="" hidden disabled>
-              Select Gender
-            </option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
+          <div className="relative flex flex-1 items-center w-full sm:w-2/3">
+            <select
+              className="appearance-none w-full text-muted-foreground rounded-2xl bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold p-4"
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+            >
+              <option value="" hidden disabled>
+                Select Gender
+              </option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
         </div>
         <div className="flex w-full justify-center items-center">
           <Button
             type="submit"
-            className=" w-1/2 py-6 bg-primary rounded-3xl shadow hover:scale-105 ease-in-out font-semibold "
+            className="w-full sm:w-1/2 py-6 bg-primary rounded-3xl shadow hover:scale-105 ease-in-out font-semibold"
           >
-            Submit
-            <ArrowRightIcon size={20} />
+            Submit <ArrowRightIcon size={20} />
           </Button>
         </div>
       </form>

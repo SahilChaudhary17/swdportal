@@ -170,13 +170,13 @@ const MyComponent = () => {
         />
       ) : (
         <div>
-          <header className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
-            <div className="relative flex gap-3 items-center">
-              <div className="w-1/2 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+          <header className="flex gap-5 justify-between flex-wrap">
+            <div className=" relative flex gap-3 items-center">
+              <div className=" w-1/2 py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
                 Registration Number
               </div>
               <Input
-                className="rounded-2xl w-1/2 text-base font-semibold  px-4"
+                className="rounded-2xl w-1/2 text-base font-semibold px-4"
                 type="text"
                 name="regNumber"
                 placeholder="00XYZ00000"
@@ -192,7 +192,7 @@ const MyComponent = () => {
               {loading ? "Loading..." : "Fetch Complaints"}
             </button>
           </header>
-          <main className=" mt-4 w-full ">
+          <main className="mt-4 w-full">
             {submitted ? (
               complaints.length > 0 ? (
                 <ComplaintsList

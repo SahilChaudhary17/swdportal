@@ -98,142 +98,9 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
   };
 
   return (
-    <div className="w-full">
-      {/* <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="relative flex items-center">
-            <Input
-              type="text"
-              name="registrationNumber"
-              placeholder="Registration Number"
-              value={formData.registrationNumber}
-              onChange={handleChange}
-              disabled
-              className="rounded-2xl  text-base font-semibold  px-4"
-            />
-            <Hash className="absolute right-6 text-gray-500" size={20} />
-          </div>
-          <div className="relative flex items-center gap-4 justify-between">
-            <div className="flex w-full relative items-center">
-              <Input
-                type="text"
-                name="studentName"
-                placeholder="Student Name"
-                disabled
-                value={formData.studentName}
-                onChange={handleChange}
-                className="rounded-2xl  text-base font-semibold  px-4"
-              />
-              <User className="absolute right-6 text-gray-500" size={20} />
-            </div>
-            <div className="">
-              <Input
-                className="rounded-2xl  text-base font-semibold  px-4"
-                name="gender"
-                value={formData.gender}
-                disabled
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="relative flex items-center">
-            <Input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              disabled
-              className="rounded-2xl disabled:opacity-75 border border-violet-500 text-violet-400 font-semibold font-['Poppins'] px-4 py-2"
-            />
-            <MailIcon className="absolute right-6 text-gray-500" size={20} />
-          </div>
-          <div className="relative flex items-center">
-            <Input
-              type="tel"
-              name="studentMobileNo"
-              placeholder="Mobile Number"
-              value={formData.studentMobileNo}
-              onChange={handleChange}
-              disabled
-              className="rounded-2xl disabled:opacity-75 border border-violet-500 text-violet-400 font-semibold font-['Poppins'] px-4 py-2"
-            />
-            <Smartphone className="absolute right-6 text-gray-500" size={20} />
-          </div>
-        </div>
-        <div className="relative flex items-center">
-          <Input
-            type="text"
-            name="title"
-            placeholder="Complaint Name"
-            value={formData.title}
-            onChange={handleChange}
-            className="rounded-2xl border border-violet-500 text-violet-400 font-semibold font-['Poppins'] px-4 py-2"
-          />
-        </div>
-        <div className="relative flex items-center">
-          <Textarea
-            name="description"
-            placeholder="Complaint Description"
-            value={formData.description}
-            onChange={handleChange}
-            className="rounded-2xl border border-violet-500 text-violet-400 font-semibold font-['Poppins'] px-4 "
-          />
-          <MessageSquare
-            className="absolute right-6 top-4 text-gray-500"
-            size={20}
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="relative flex items-center">
-            <Input
-              type="text"
-              name="facultyName"
-              placeholder="Complaint By"
-              value={formData.dateTime.substr(0, 10)}
-              onChange={handleChange}
-              disabled
-              className="rounded-2xl disabled:opacity-75 border border-violet-500 text-violet-400 font-semibold font-['Poppins'] px-4 py-2"
-            />
-            <Calendar className="absolute right-6 text-gray-500" size={20} />
-          </div>
-          <div className="relative flex items-center">
-            <Input
-              type="text"
-              name="facultyName"
-              placeholder="Complaint By"
-              value={formData.facultyName}
-              onChange={handleChange}
-              disabled
-              className="rounded-2xl disabled:opacity-75 border border-violet-500 text-violet-400 font-semibold font-['Poppins'] px-4 py-2"
-            />
-            <User className="absolute right-6 text-gray-500" size={20} />
-          </div>
-        </div>
-        <div className="flex gap-4">
-          <Button className="w-fit mr-8" onClick={() => onBack(null)}>
-            <MoveLeft className="text-white" size={20} />
-          </Button>
-          <Button
-            type="button"
-            onClick={handleResolve}
-            className="flex items-center gap-x-1 max-w-[166px] bg-green-500 rounded-3xl shadow hover:bg-green-600 px-4 py-2"
-          >
-            Mark as Resolved
-          </Button>
-          <Button
-            type="submit"
-            className="flex items-center gap-x-1 max-w-[166px] bg-violet-500 rounded-3xl shadow hover:bg-violet-600 px-4 py-2"
-          >
-            Save Changes
-          </Button>
-        </div>
-      </form> */}
-      {/* <Button className="w-fit mr-8 mb-4 hover:scale-105" onClick={() => onBack(null)}>
-              <MoveLeft className="text-white" size={20} />
-            </Button> */}
+    <div className="w-full mb-2">
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-4  ">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <div className="relative flex items-center ">
             <Input
               value={formData.registrationNumber}
@@ -324,8 +191,8 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
             size={20}
           />
         </div>
-        <div className="relative flex items-center gap-4 justify-between">
-          <div className="flex w-1/2 relative items-center">
+        <div className="relative flex flex-col lg:flex-row items-center gap-4 justify-between">
+          <div className="flex w-full relative items-center">
             <Input
               type="text"
               name="remark"
@@ -339,7 +206,7 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
               size={20}
             />
           </div>
-          <div className=" flex w-1/2 relative items-center">
+          <div className=" flex w-full relative items-center">
             <select
               className="appearance-none w-full text-base text-muted-foreground  rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-8"
               name="IdCardStatus"
@@ -356,30 +223,32 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
             </select>
           </div>
         </div>
-        <div className="relative flex items-center gap-4 justify-between">
-          <div className="flex w-1/2 relative items-center justify-between">
+        <div className="relative flex lg:flex-row flex-col-reverse items-center gap-4 justify-between">
+          <div className="flex flex-col-reverse lg:flex-row gap-4 w-full relative items-center lg:justify-between ">
             <Button
-              className="w-fit p-6  hover:scale-105"
+              className="p-6 max-lg:w-full  hover:scale-105"
               onClick={() => onBack(null)}
             >
               <MoveLeft className="text-white" size={25} />
             </Button>
-            <Button
-              type="button"
-              onClick={handleResolve}
-              className=" rounded-2xl shadow hover:scale-105 p-6 bg-green-500  hover:bg-green-600 "
-            >
-              Mark as Resolved
-            </Button>
-            <Button
-              type="submit"
-              variant='default'
-              className=" rounded-2xl shadow hover:scale-105 p-6"
-            >
-              Save Changes
-            </Button>
+            <div className="flex w-full  gap-4">
+              <Button
+                type="button"
+                onClick={handleResolve}
+                className="w-full rounded-2xl shadow hover:scale-105 p-6 bg-green-500  hover:bg-green-600 "
+              >
+                Mark as Resolved
+              </Button>
+              <Button
+                type="submit"
+                variant="default"
+                className="w-full rounded-2xl shadow hover:scale-105 p-6"
+              >
+                Save Changes
+              </Button>
+            </div>
           </div>
-          <div className="flex w-1/2 relative items-center ">
+          <div className="flex w-full relative items-center ">
             <Input
               value={formData.facultyName}
               disabled

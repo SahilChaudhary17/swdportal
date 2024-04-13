@@ -191,10 +191,10 @@ const CreateComplaint = ({userName}) => {
     }
   };
   return (
-    <div className="w-full">
+    <div className="w-full mb-2">
       <HeadingCard heading={"Add new complaints"} />
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-4  ">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid lg:grid-cols-2 gap-4 grid-cols-1">
           <div className="relative flex items-center ">
             <Input
               type="text"
@@ -209,7 +209,7 @@ const CreateComplaint = ({userName}) => {
               size={20}
             />
           </div>
-          <div className="relative flex items-center gap-4 justify-between">
+          <div className="relative flex items-center gap-4 justify-between ">
             <div className="flex w-full relative items-center">
               <Input
                 type="text"
@@ -224,9 +224,9 @@ const CreateComplaint = ({userName}) => {
                 size={20}
               />
             </div>
-            <div className=" flex relative items-center">
+            <div className=" flex relative items-center w-full">
               <select
-                className="appearance-none text-base text-muted-foreground rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-8"
+                className="appearance-none w-full text-base text-muted-foreground rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-8"
                 name="gender"
                 value={formData.gender}
                 onChange={handleChange}
@@ -243,7 +243,7 @@ const CreateComplaint = ({userName}) => {
           </div>
           <div className="relative flex items-center ">
             <Input
-              type="email"
+              type="Email"
               name="email"
               placeholder="Email"
               value={formData.email}
@@ -257,7 +257,7 @@ const CreateComplaint = ({userName}) => {
           </div>
           <div className="relative flex items-center ">
             <Input
-              type="tel"
+              type="Number"
               name="studentMobileNo"
               placeholder="Mobile Number"
               value={formData.studentMobileNo}
@@ -294,7 +294,7 @@ const CreateComplaint = ({userName}) => {
           />
         </div>
         <div className="relative flex items-center gap-4 justify-between">
-          <div className="flex w-1/2 relative items-center">
+          <div className="flex w-full relative items-center">
             <Input
               type="text"
               name="remark"
@@ -308,7 +308,7 @@ const CreateComplaint = ({userName}) => {
               size={20}
             />
           </div>
-          <div className=" flex w-1/2 relative items-center">
+          <div className=" flex w-full  relative items-center">
             <select
               className="appearance-none w-full text-base text-muted-foreground  rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-8"
               name="IdCardStatus"
@@ -325,11 +325,11 @@ const CreateComplaint = ({userName}) => {
             </select>
           </div>
         </div>
-        <div className="flex  gap-4 items-center w-full">
-          <div className="relative flex-1 items-center   ">
+        <div className="flex flex-col gap-4 items-center w-full lg:flex-row">
+          <div className="relative w-full items-center   ">
             <DatePicker onSelect={handleDateSelect} />
           </div>
-          <div className="relative flex flex-1 items-center ">
+          <div className="relative flex w-full items-center ">
             <Input
               value={formData.facultyName}
               disabled
@@ -343,7 +343,7 @@ const CreateComplaint = ({userName}) => {
           <Button
             type="submit"
             disabled={isSubmitting || cooldown}
-            className="w-1/3 p-6 bg-primary rounded-3xl shadow hover:scale-105 ease-in font-semibold "
+            className="w-full p-6 bg-primary rounded-3xl shadow hover:scale-105 ease-in font-semibold "
           >
             Submit
           </Button>

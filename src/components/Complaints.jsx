@@ -36,43 +36,44 @@ const Complaints = ({ search }) => {
 
   return (
     <>
-      <div>
-        <HeadingCard heading={"View existing complaints"} />
-        {selectedComplaint ? (
-          <Student
-            complaint={selectedComplaint}
-            onBack={setSelectedComplaint}
-          />
-        ) : (
-          // complaint div
-          <div className="relative grid grid-cols-3 gap-x-8 gap-y-4 ">
-            {search === ""
-              ? complaints
-                  .slice(0, 9)
-                  .map((complaint) => (
-                    <ComplaintCard
-                      key={complaint._id}
-                      complaint={complaint}
-                      onViewDetails={setSelectedComplaint}
-                    />
-                  ))
-              : complaints
-                  .filter((complaint) =>
-                    complaint.registrationNumber.startsWith(
-                      search.toUpperCase()
-                    )
+    <div>
+      <HeadingCard heading={"View existing complaints"} />
+      {selectedComplaint ? (
+        <Student
+          complaint={selectedComplaint}
+          onBack={setSelectedComplaint}
+        />
+      ) : (
+        // complaint div
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-between">
+          {search === ""
+            ? complaints
+                .slice(0, 9)
+                .map((complaint) => (
+                  <ComplaintCard
+                    key={complaint._id}
+                    complaint={complaint}
+                    onViewDetails={setSelectedComplaint}
+                  />
+                ))
+            : complaints
+                .filter((complaint) =>
+                  complaint.registrationNumber.startsWith(
+                    search.toUpperCase()
                   )
-                  .map((complaint) => (
-                    <ComplaintCard
-                      key={complaint._id}
-                      complaint={complaint}
-                      onViewDetails={setSelectedComplaint}
-                    />
-                  ))}
-          </div>
-        )}
-      </div>
-    </>
+                )
+                .map((complaint) => (
+                  <ComplaintCard
+                    key={complaint._id}
+                    complaint={complaint}
+                    onViewDetails={setSelectedComplaint}
+                  />
+                ))}
+        </div>
+      )}
+    </div>
+  </>
+  
   );
 };
 
