@@ -8,9 +8,12 @@ import { Eye, EyeOff, User } from "lucide-react";
 import Link from "next/link";
 import { Toast } from "./Toast";
 import Image from "next/image";
+import { BallTriangle } from "react-loader-spinner";
+
 const LoginForm = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     empId: "",
@@ -36,34 +39,51 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(`${process.env.SERVER_APP_URL}/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(`Login failed : ${data.message}`);
+    setLoading(true); // Set loading state to true immediately
+
+    // Delay the execution of the fetch request by at least 0.1 seconds
+    setTimeout(async () => {
+      try {
+        const response = await fetch(
+          `${process.env.SERVER_APP_URL}/auth/login`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(`Login failed : ${data.message}`);
+        }
+
+        localStorage.setItem("complaintToken", data.token);
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+        router.push("/");
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      } finally {
+        // Ensure that loading state is set to false after at least 0.1 seconds
+        setTimeout(() => setLoading(false), 100);
       }
-      localStorage.setItem("complaintToken", data.token);
-      Toast.fire({
-        icon: "success",
-        title: "Login successfully!",
-      });
-      router.push("/");
-    } catch (error) {
-      Toast.fire({
-        icon: "error",
-        title: error.message,
-      });
-    }
+    }, 0); // Wait at least 0.0 seconds before executing the fetch request
   };
 
   return (
     <div className="flex flex-col h-screen">
+      {loading && (
+        <div className="w-full h-full flex justify-center items-center absolute bg-white z-50">
+          <BallTriangle height={100} width={100} color="#C5D4EA" />
+        </div>
+      )}
       {/* img div */}
       <div className="flex flex-row-reverse justify-between w-full px-3">
         <div className="flex items-center  ">
@@ -96,12 +116,12 @@ const LoginForm = () => {
         </div>
       </div>
       <div className="h-3 w-full bg-primary"></div>
-      <div className="w-full flex justify-center   items-center my-auto">
+      <div className="w-full flex justify-center items-center my-auto">
         <form
           onSubmit={handleSubmit}
           className="gap-4 flex flex-col min-w-lg items-center justify-center rounded-3xl shadow-2xl px-16 py-20 bg-primary "
         >
-        <User className="text-card mb-4" size={65}/>
+          <User className="text-card mb-0" size={70} />
           <div className="relative flex items-center rounded-3xl border">
             <Input
               className="rounded-2xl border font-semibold "
@@ -115,7 +135,7 @@ const LoginForm = () => {
           </div>
           <div className="relative flex items-center rounded-2xl border ">
             <Input
-              className="rounded-2xl  text-base font-semibold  placeholder:text-2xl place "
+              className="rounded-2xl  text-base font-semibold  placeholder:text-2xl "
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="**********"
@@ -145,7 +165,12 @@ const LoginForm = () => {
               <ArrowRightIcon size={25} />
             </Button>
 
-            <Link className="text-card hover:animate-pulse" href={"/login/forgot-password"}>Forgot Password?</Link>
+            <Link
+              className="text-card hover:animate-pulse"
+              href={"/login/forgot-password"}
+            >
+              Forgot Password?
+            </Link>
           </div>
         </form>
       </div>
