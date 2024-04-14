@@ -8,7 +8,7 @@ const Profile = ({ token }) => {
     empId: "",
     img: "",
   });
-  const[loading,setLoading] = useState(true);
+  const[loading,setLoading] = useState(false);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {

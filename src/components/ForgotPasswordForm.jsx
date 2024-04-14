@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { Toast } from "./Toast";
 import Link from "next/link";
 import Image from "next/image";
+import { BallTriangle } from "react-loader-spinner";
+
 const ForgotPasswordForm = () => {
   const [empId, setEmpId] = useState("");
   const [email, setEmail] = useState("");
@@ -16,9 +18,10 @@ const ForgotPasswordForm = () => {
   const [step, setStep] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-
+  const[loading,setLoading] = useState(false)
   const handleForgotPassword = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(
         `${process.env.SERVER_APP_URL}/auth/forgot-password`,
@@ -45,11 +48,16 @@ const ForgotPasswordForm = () => {
         icon: "error",
         title: error.message,
       });
+    } finally{
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 
   const handleVerifyOTP = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(
         `${process.env.SERVER_APP_URL}/auth/verify-otp`,
@@ -75,6 +83,10 @@ const ForgotPasswordForm = () => {
         icon: "error",
         title: error.message,
       });
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 
@@ -84,6 +96,7 @@ const ForgotPasswordForm = () => {
 
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(
         `${process.env.SERVER_APP_URL}/auth/update-password`,
@@ -113,8 +126,23 @@ const ForgotPasswordForm = () => {
         icon: "error",
         title: error.message,
       });
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
+
+  {loading && (
+    <div
+      className="fixed inset-0 flex justify-center items-center backdrop-filter backdrop-blur-sm z-50"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+    >
+      <div className="relative">
+        <BallTriangle height={100} width={100} color="#C5D4EA" />
+      </div>
+    </div>
+  )}
 
   return (
     <div className="flex flex-col h-screen">
