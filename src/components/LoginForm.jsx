@@ -65,11 +65,11 @@ const LoginForm = () => {
   return (
     <div className="flex flex-col h-screen">
       {/* img div */}
-      <div className="flex flex-row-reverse justify-between w-full px-3 bg-accent">
+      <div className="flex flex-row-reverse justify-between w-full px-3">
         <div className="flex items-center  ">
           <Link href="/login">
             <Image
-              width={300}
+              width={230}
               height={50}
               placeholder="blur"
               blurDataURL="/"
@@ -86,7 +86,7 @@ const LoginForm = () => {
             rel="noopener noreferrer"
           >
             <Image
-              width={200}
+              width={175}
               height={50}
               src="/vitblogo.png"
               alt="VIT Bhopal University"
@@ -95,13 +95,13 @@ const LoginForm = () => {
           </Link>
         </div>
       </div>
-      <div className="h-5 w-full bg-primary"></div>
+      <div className="h-3 w-full bg-primary"></div>
       <div className="w-full flex justify-center   items-center my-auto">
         <form
           onSubmit={handleSubmit}
           className="gap-4 flex flex-col min-w-lg items-center justify-center rounded-3xl shadow-2xl px-16 py-20 bg-primary "
         >
-        <User className="text-card mb-4" size={100}/>
+        <User className="text-card mb-4" size={65}/>
           <div className="relative flex items-center rounded-3xl border">
             <Input
               className="rounded-2xl border font-semibold "
