@@ -47,47 +47,51 @@ export function StudentComplaints({
 
       const data = [
         [
+          "Sr No.",
           "Date",
+          "Complaint Status",
           "Registration No.",
           "Student Name",
           "Gender",
-          "Complaint Title",
-          "Description",
-          "Status",
-          "Complaint By",
           "MobileNo",
           "Email",
+          "Complaint Title",
+          "Description",
+          "Remarks",
+          "ID Card Status",
+          "Registered By",
           "Last Modify By",
         ],
-      ];
-      complaints.forEach((complaint) => {
-        const row = [
+
+        ...complaints.map((complaint, index) => [
+          index+1,
           complaint.dateTime.slice(0, 10),
+          complaint.status,
           complaint.registrationNumber,
           complaint.studentName,
           complaint.gender,
-          complaint.title,
-          complaint.description,
-          complaint.status,
-          complaint.facultyName,
           complaint.studentMobileNo,
           complaint.email,
+          complaint.title,
+          complaint.description,
+          complaint.remarks,
+          complaint.IdCardStatus,
+          complaint.facultyName,
           complaint.modifiedBy[complaint.modifiedBy.length - 1],
-        ];
-        data.push(row);
-      });
+        ]),
+      ];
 
       const ws = utils.aoa_to_sheet(data);
       const wb = utils.book_new();
       utils.book_append_sheet(wb, ws, "Complaints");
-
-      writeFile(wb, "complaints.xlsx");
-
-      Toast.fire({
-        icon: "success",
-        title: "File Downloaded",
-        text: "File has been downloaded successfully.",
-      });
+      setTimeout(() => {
+        writeFile(wb, "complaints.xlsx");
+        Toast.fire({
+          icon: "success",
+          title: "File Downloaded",
+          text: "File has been downloaded successfully.",
+        });
+      }, 5000);
     } catch (error) {
       Toast.fire({
         icon: "error",
