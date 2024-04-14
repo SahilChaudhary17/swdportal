@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BallTriangle } from "react-loader-spinner";
 
 const Profile = ({ token }) => {
   const [userData, setUserData] = useState({
@@ -7,6 +8,7 @@ const Profile = ({ token }) => {
     empId: "",
     img: "",
   });
+  const[loading,setLoading] = useState(true);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -26,6 +28,7 @@ const Profile = ({ token }) => {
   }, [token]);
 
   const fetchUsers = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${process.env.SERVER_APP_URL}/auth/users`);
       if (!response.ok) {
@@ -35,8 +38,21 @@ const Profile = ({ token }) => {
       setUsers(data.users);
     } catch (error) {
       console.error("Error fetching user list:", error);
+    } finally{
+      setLoading(false);
     }
   };
+
+  {loading && (
+    <div
+      className="fixed inset-0 flex justify-center items-center backdrop-filter backdrop-blur-sm z-50"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+    >
+      <div className="relative">
+        <BallTriangle height={100} width={100} color="#C5D4EA" />
+      </div>
+    </div>
+  )}
 
   return (
     <div className="flex justify-center items-center text-black">

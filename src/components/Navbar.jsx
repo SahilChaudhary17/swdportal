@@ -46,8 +46,8 @@ const Navbar = ({ setActive, search, setSearch, token }) => {
               className="rounded-full border-primary border-4"
             />
             <div className="flex flex-col ml-2 items-center">
-              <div className="font-medium text-xl">{userData.name}</div>
-              <div className="font-normal text-lg">{userData.post}</div>
+              <div className="font-medium text-base ">{userData.name}</div>
+              <div className="font-normal text-sm">{userData.post}</div>
             </div>
           </div>
         ) : null}

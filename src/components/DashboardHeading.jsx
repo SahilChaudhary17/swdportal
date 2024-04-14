@@ -13,7 +13,7 @@ const Card = ({ name, data }) => {
     <div className="mt-4 text-xl md:text-2xl lg:text-3xl  text-zinc-300 train-one-regular">
       <CountUp end={data} delay={0.5} duration={1} />
     </div>
-    <div className="mt-6 md:mt-8 w-full text-center py-4 text-lg md:text-base lg:text-lg xl:text-xl 2xl:text-2xl bg-zinc-300 rounded-[40px] text-slate-700">
+    <div className="mt-6 md:mt-5 w-full text-center py-4 text-lg md:text-base lg:text-base xl:text-lg 2xl:text-xl bg-zinc-300 rounded-[40px] text-slate-700">
       {name}
     </div>
   </div>
@@ -46,7 +46,7 @@ const DashboardHeading = ({ userName }) => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-    }, 1000);
+    }, 500);
 
     return () => clearInterval(timer);
   }, []);
@@ -79,7 +79,7 @@ const DashboardHeading = ({ userName }) => {
     <div>
       <div className="relative flex ">
         {/* Image */}
-        <div className="absolute w-1/2 inset-y-0 right-0  z-10 mr-10   max-xl:hidden">
+        <div className="absolute w-1/3 inset-y-0 right-0  z-10 mr-10   max-xl:hidden">
           <img
             loading="lazy"
             src="/new_img.png"
@@ -89,10 +89,10 @@ const DashboardHeading = ({ userName }) => {
             alt="College Student"
           />
         </div>
-        {/* Box */}
-        <div className="w-full pr-14 pl-12 mt-20 max-xl:mt-4 rounded-3xl shadow-2xl max-md:px-5 bg-primary z-0">
+        {/* Box 9mt-20 for size0 */}
+        <div className="w-full pr-14 pl-12 mt-0 max-xl:mt-0 rounded-3xl shadow-2xl max-md:px-5 bg-primary z-0">
           <div className="flex py-6 justify-between max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col self-stretch md:mt-4 text-white dark:text-zinc-300 text-opacity-80 max-md:max-w-full">
+            <div className="flex flex-col self-stretch md:mt-3 text-white dark:text-zinc-300 text-opacity-80 max-md:max-w-full">
               <h2 className="text-xs max-w-full sm:text-xs md:text-sm  ">
                 {format(currentTime, "PPP p")}
               </h2>
@@ -104,7 +104,7 @@ const DashboardHeading = ({ userName }) => {
                   </a>
                 ) : null}
               </h1>
-              <h3 className="max-w-full text-sm sm:text-base md:text-lg  ">
+              <h3 className="max-w-full text-sm sm:text-base md:text-base  ">
                 Always stay informed with the latest updates on your portal!
               </h3>
             </div>
@@ -112,7 +112,7 @@ const DashboardHeading = ({ userName }) => {
         </div>
       </div>
 
-      <div className="flex w-full flex-col lg:flex-row mt-10 gap-8 justify-between">
+      <div className="flex w-full flex-col lg:flex-row mt-6 gap-8 justify-between">
         <Card name={"Total Complaint"} data={`${task.totalComplaints}`} />
         <Card name={"Pending Complaint"} data={`${task.PendingComplaints}`} />
         <Card name={"Resolved Complaint"} data={`${task.ResolvedComplaints}`} />

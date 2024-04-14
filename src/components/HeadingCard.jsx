@@ -2,7 +2,7 @@ const HeadingCard = ({ heading }) => {
   return (
     <div className="mb-4 rounded-3xl shadow-xl bg-primary p-3 lg:p-0">
       <div className="w-full flex items-center justify-between">
-        <div className=" md:text-xl lg:text-2xl xl:text-3xl ml-6 py-3 font-semibold text-center text-white whitespace-nowrap break-words">
+        <div className=" md:text-lg lg:text-xl xl:text-2xl ml-8 py-3 font-semibold text-center text-white whitespace-nowrap break-words">
           {heading}
         </div>
 

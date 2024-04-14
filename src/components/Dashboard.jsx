@@ -11,6 +11,7 @@ import Profile from "./Profile";
 import DownloadExcel from "./DownloadExcel";
 import ModifyComplaint from "./ModifyComplaint";
 import { useRouter } from "next/navigation";
+import { BallTriangle } from "react-loader-spinner";
 
 function Dashboard() {
   const [token, setToken] = useState("");

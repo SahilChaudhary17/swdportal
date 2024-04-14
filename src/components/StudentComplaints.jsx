@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -9,6 +9,8 @@ import { DownloadIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { utils, writeFile } from "xlsx";
 import { Toast } from "./Toast";
+import { BallTriangle } from "react-loader-spinner";
+
 export function StudentComplaints({
   complaints,
   currentPage,
@@ -16,6 +18,7 @@ export function StudentComplaints({
   totalComplaints,
   onPageChange,
 }) {
+  const[loading,setLoading] = useState(false)
   const startIndex = (currentPage - 1) * perPage;
   const endIndex = startIndex + perPage;
   const currentComplaints = complaints.slice(startIndex, endIndex);
@@ -35,6 +38,7 @@ export function StudentComplaints({
   };
 
   const handleDownloadExcel = () => {
+    setLoading(true);
     try {
       if (complaints.length === 0) {
         throw new Error("No complaints available to download.");
@@ -91,14 +95,25 @@ export function StudentComplaints({
           title: "File Downloaded",
           text: "File has been downloaded successfully.",
         });
+        setLoading(false);
       }, 5000);
     } catch (error) {
       Toast.fire({
         icon: "error",
         title: error.message,
       });
-    }
+    } 
   };
+  
+  if (loading) {
+    return (
+      <div className="">
+        <div className="flex justify-center items-center p-32">
+          <BallTriangle height={100} width={100} color="#C5D4EA" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">

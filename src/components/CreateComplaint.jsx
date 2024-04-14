@@ -18,6 +18,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Calendar } from "./ui/calendar";
 import HeadingCard from "./HeadingCard";
 import { Toast } from "./Toast";
+import { BallTriangle } from "react-loader-spinner";
+
 export const DatePicker = ({ onSelect, reset }) => {
   const [date, setDate] = useState();
 
@@ -64,7 +66,7 @@ export const DatePicker = ({ onSelect, reset }) => {
   );
 };
 
-const CreateComplaint = ({userName}) => {
+const CreateComplaint = ({ userName }) => {
   const [formData, setFormData] = useState({
     registrationNumber: "",
     studentName: "",
@@ -135,15 +137,16 @@ const CreateComplaint = ({userName}) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cooldown, setCooldown] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     if (isSubmitting || cooldown) {
       return;
     }
 
-    setIsSubmitting(true); 
+    setIsSubmitting(true);
 
     const isFormComplete = Object.values(formData).every(
       (value) => value !== ""
@@ -154,7 +157,8 @@ const CreateComplaint = ({userName}) => {
         icon: "warning",
         title: "Please fill in all the details before submitting.",
       });
-      setIsSubmitting(false); 
+      setIsSubmitting(false);
+      setLoading(false); // Set loading to false if the form is not complete
       return;
     }
 
@@ -187,12 +191,25 @@ const CreateComplaint = ({userName}) => {
       setTimeout(() => {
         setIsSubmitting(false);
         setCooldown(false);
-      }, 3000); 
+        setLoading(false); // Set loading to false after everything is done
+      }, 2000);
     }
   };
+
+
   return (
     <div className="w-full mb-2">
-      <HeadingCard heading={"Add new complaints"} />
+      <HeadingCard heading={"Add New Complaints"} />
+      {loading && (
+        <div
+          className="fixed inset-0 flex justify-center items-center backdrop-filter backdrop-blur-sm z-50"
+          style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+        >
+          <div className="relative">
+            <BallTriangle height={100} width={100} color="#C5D4EA" />
+          </div>
+        </div>
+      )}
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-4  ">
         <div className="grid lg:grid-cols-2 gap-4 grid-cols-1">
           <div className="relative flex items-center ">

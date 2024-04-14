@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 import { StudentComplaints } from "./StudentComplaints";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
-import { BallTriangle as Loading} from "react-loader-spinner";
+import { BallTriangle } from "react-loader-spinner";
 
 const DownloadExcel = () => {
   const [allComplaints, setAllComplaints] = useState([]);
@@ -84,16 +84,14 @@ const DownloadExcel = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center h-5/6  ">
-        <Loading
-          height={100}
-          width={100}
-          radius={5}
-          color="#C5D4EA"
-          wrapperClass="p-56" 
-          visible={true}
-        />
+      <div
+      className="fixed inset-0 flex justify-center items-center backdrop-filter backdrop-blur-sm z-50"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+    >
+      <div className="relative">
+        <BallTriangle height={100} width={100} color="#C5D4EA" />
       </div>
+    </div>
     );
   }
 

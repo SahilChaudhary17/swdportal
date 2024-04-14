@@ -14,9 +14,12 @@ import {
   User,
 } from "lucide-react";
 import { Toast } from "./Toast";
+import { BallTriangle } from "react-loader-spinner";
+
 const ModifyForm = ({ selectedComplaint, onBack }) => {
   const token = localStorage.getItem("complaintToken");
   const decodedToken = jwt.decode(token);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     registrationNumber: selectedComplaint.registrationNumber,
@@ -71,34 +74,49 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(
-        `${process.env.SERVER_APP_URL}/faculty/modify/${selectedComplaint._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-      const data = await response.json();
-      // alert(data.message);
-      Toast.fire({
-        icon: "success",
-        title: data.message,
-      });
-    } catch (error) {
-      // console.error("Error modifying complaint:", error);
-      Toast.fire({
-        icon: "error",
-        title: error.message,
-      });
-    }
+    setLoading(true);
+    setTimeout(async () => {
+      try {
+        const response = await fetch(
+          `${process.env.SERVER_APP_URL}/faculty/modify/${selectedComplaint._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+        const data = await response.json();
+        // alert(data.message);
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+      } catch (error) {
+        // console.error("Error modifying complaint:", error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      } finally {
+        setLoading(false); // Set loading state to false after the operation is completed
+      }
+    }, 100);
   };
 
   return (
     <div className="w-full mb-2">
+      {loading && (
+        <div
+          className="fixed inset-0 flex justify-center items-center backdrop-filter backdrop-blur-sm z-50"
+          style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+        >
+          <div className="relative">
+            <BallTriangle height={100} width={100} color="#C5D4EA" />
+          </div>
+        </div>
+      )}
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-4  ">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <div className="relative flex items-center ">

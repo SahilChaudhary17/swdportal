@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { StudentComplaints } from "./StudentComplaints";
 import { Button } from "./ui/button";
-
+import { BallTriangle
+ } from "react-loader-spinner";
 const Student = ({ complaint, onBack }) => {
   const url = process.env.SERVER_APP_URL;
   const [complaints, setComplaints] = useState([]);
@@ -57,7 +58,14 @@ const Student = ({ complaint, onBack }) => {
       <div className="pb-5">
         <div className="relative flex flex-col">
           {loading ? (
-            <p>Loading...</p>
+            <div
+            className="fixed inset-0 flex justify-center items-center backdrop-filter backdrop-blur-sm z-50"
+            style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+          >
+            <div className="relative">
+              <BallTriangle height={100} width={100} color="#C5D4EA" />
+            </div>
+          </div>
           ) : (
             <div className="relative flex flex-col">
               <StudentComplaints

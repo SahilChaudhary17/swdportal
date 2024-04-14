@@ -1,9 +1,21 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { User, MailIcon, ArrowRightIcon, Smartphone, Hash } from "lucide-react";
+import {
+  User,
+  MailIcon,
+  ArrowRightIcon,
+  Smartphone,
+  Hash,
+  ArrowBigDown,
+  ArrowDown,
+  ArrowDown01,
+  ArrowDownCircle,
+} from "lucide-react";
 import HeadingCard from "./HeadingCard";
 import { Toast } from "./Toast";
+import { BallTriangle } from "react-loader-spinner";
+
 const AddStudent = () => {
   const [formData, setFormData] = useState({
     regNumber: "",
@@ -12,6 +24,7 @@ const AddStudent = () => {
     mobileNo: "",
     gender: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -47,33 +60,40 @@ const AddStudent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const { regNumber, name, email, mobileNo, gender } = formData;
-
-    if (
-      regNumber.length === 10 &&
-      name !== "" &&
-      email !== "" &&
-      mobileNo.length === 10 &&
-      gender !== ""
-    ) {
+    setTimeout(async () => {
       try {
-        const response = await fetch(
-          `${process.env.SERVER_APP_URL}/faculty/students/add`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
+        if (
+          regNumber.length === 10 &&
+          name.trim() !== "" &&
+          email.trim() !== "" &&
+          mobileNo.length === 10 &&
+          gender.trim() !== ""
+        ) {
+          const response = await fetch(
+            `${process.env.SERVER_APP_URL}/faculty/students/add`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            }
+          );
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(`Adding failed : ${data.message}`);
+          } else {
+            Toast.fire({
+              icon: "success",
+              title: "Student added successfully.",
+            });
           }
-        );
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error(`Adding failed : ${data.message}`);
         } else {
           Toast.fire({
-            icon: "success",
-            title: "Student added successfully.",
+            icon: "warning",
+            title: "All info required. Reg & mobile # must be 10 digits.",
           });
         }
       } catch (error) {
@@ -81,25 +101,37 @@ const AddStudent = () => {
           icon: "error",
           title: error.message,
         });
+      } finally {
+        setLoading(false); // Set loading state to false after the operation is completed
       }
-    } else {
-      Toast.fire({
-        icon: "warning",
-        title: "All info required. Reg & mobile # must be 10 digits.",
-      });
-    }
+    }, 100);
   };
 
+   if (loading) {
+    return (
+      <div
+      className="fixed inset-0 flex justify-center items-center backdrop-filter backdrop-blur-sm z-50"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+    >
+      <div className="relative">
+        <BallTriangle height={100} width={100} color="#C5D4EA" />
+      </div>
+    </div>
+    );
+  }
+
+  
   return (
     <div className="w-full mb-2">
-      <HeadingCard heading={"Create A New Student Profile"} />
+      <HeadingCard heading={"Create New Student Profile"} />
+      
 
       <form
         onSubmit={handleSubmit}
         className="flex flex-col m-auto gap-y-4 max-w-3xl "
       >
-        <div className="relative flex flex-col gap-3 sm:flex-row">
-          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+        <div className="relative flex flex-col gap-3 sm:flex-row items-center justify-center">
+          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold text-center">
             Registration Number
           </div>
           <div className="relative flex flex-1 items-center w-full sm:w-2/3">
@@ -115,7 +147,7 @@ const AddStudent = () => {
           </div>
         </div>
         <div className="relative flex flex-col gap-3 sm:flex-row">
-          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold text-center">
             Student Name
           </div>
           <div className="relative flex flex-1 items-center w-full sm:w-2/3">
@@ -123,7 +155,7 @@ const AddStudent = () => {
               className=" rounded-2xl  text-base font-semibold  px-4"
               type="text"
               name="name"
-              placeholder="John Doe"
+              placeholder="Full Name"
               value={formData.name}
               onChange={handleChange}
             />
@@ -132,7 +164,7 @@ const AddStudent = () => {
         </div>
 
         <div className="relative flex flex-col gap-3 sm:flex-row">
-          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold text-center">
             Student Email
           </div>
           <div className="relative flex flex-1 items-center w-full sm:w-2/3">
@@ -140,7 +172,7 @@ const AddStudent = () => {
               className=" rounded-2xl text-base font-semibold  px-4"
               type="email"
               name="email"
-              placeholder="john_doe@example.com"
+              placeholder="email@organisation"
               value={formData.email}
               onChange={handleChange}
             />
@@ -148,7 +180,7 @@ const AddStudent = () => {
           </div>
         </div>
         <div className="relative flex flex-col gap-3 sm:flex-row">
-          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
+          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold text-center">
             Mobile Number
           </div>
           <div className="relative flex flex-1 items-center w-full sm:w-2/3">
@@ -164,8 +196,8 @@ const AddStudent = () => {
           </div>
         </div>
         <div className="relative flex flex-col gap-3 sm:flex-row">
-          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold">
-            Gender (M / F)
+          <div className="w-full sm:w-1/3 h-full py-4 rounded-2xl bg-[#d9d9d9] px-7 text-primary font-semibold text-center">
+            Gender
           </div>
           <div className="relative flex flex-1 items-center w-full sm:w-2/3">
             <select
@@ -175,7 +207,7 @@ const AddStudent = () => {
               onChange={handleChange}
             >
               <option value="" hidden disabled>
-                Select Gender
+                Male/Female
               </option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>

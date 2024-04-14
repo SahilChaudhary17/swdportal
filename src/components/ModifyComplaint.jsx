@@ -4,6 +4,8 @@ import HeadingCard from "./HeadingCard";
 import ModifyForm from "./ModifyForm";
 import { Toast } from "./Toast";
 import { Button } from "./ui/button";
+import { BallTriangle } from "react-loader-spinner";
+
 const ModifyComplaint = () => {
   return (
     <div>
@@ -19,14 +21,21 @@ const StatusIndicator = ({ status }) => {
   const colorClass = status === "Resolved" ? "bg-green-500" : "bg-amber-500";
   return (
     <div
-      className={`shrink-0 rounded-3xl ${colorClass} bg-opacity-50 h-6 w-6`}
+    className={`shrink-0 rounded-3xl ${colorClass} bg-opacity-50 h-6 w-6`}
     />
   );
 };
 
 const ComplaintCard = ({ complaint, onSelectComplaint }) => {
-  const handleModify = () => {
-    onSelectComplaint(complaint);
+  const [loading, setLoading] = useState(false);
+
+  const handleModify = async () => {
+    setLoading(true);
+    try {
+      await onSelectComplaint(complaint);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -41,6 +50,7 @@ const ComplaintCard = ({ complaint, onSelectComplaint }) => {
       <div class="mt-4 flex items-center gap-2 justify-between">
         <Button
           onClick={handleModify}
+          disabled={loading}
           className="bg-primary p-6 rounded-3xl shadow hover:scale-105 font-semibold"
         >
           Modify
@@ -135,6 +145,7 @@ const MyComponent = () => {
 
     setLoading(true);
     setComplaints([]);
+    setTimeout(async () => {
     try {
       const response = await fetch(
         `${process.env.SERVER_APP_URL}/faculty/complaints/student/${registrationNumber}`
@@ -152,14 +163,25 @@ const MyComponent = () => {
         title: error.message,
       });
     } finally {
-      setLoading(false);
       setSubmitted(true);
+      setLoading(false);
     }
+  },100);
   };
 
   const handleSelectComplaint = (complaint) => {
     setSelectedComplaint(complaint);
   };
+
+  if (loading) {
+    return (
+      <div className="">
+        <div className="flex justify-center items-center p-32">
+          <BallTriangle height={100} width={100} color="#C5D4EA" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">
