@@ -22,17 +22,17 @@ const Navbar = ({ setActive, search, setSearch, token }) => {
 
   return (
     <div className="flex md:flex-row items-center gap-6 font-sans">
-      <div className="relative flex flex-1 items-center">
+      <div className="relative flex flex-1 items-center ">
         <Input
           id="Search"
-          className="rounded-3xl text-base font-semibold px-4 flex-1 max-w-full "
+          className="rounded-3xl text-base font-semibold px-4 flex-1 max-w-full pr-12 placeholder:hidden"
           type="text"
           name="regNumber"
           placeholder="Search by Registration Number"
           value={search}
           onChange={(e) => handleSearch(e)}
         />
-        <Search size={25} className="absolute right-6 text-muted-foreground"/>
+        <Search size={25} className="absolute right-4 text-muted-foreground" />
       </div>
       <div className="hidden items-center gap-2 md:justify-end md:flex">
         {userData.image ? (
