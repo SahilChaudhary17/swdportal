@@ -39,7 +39,7 @@ export const DatePicker = ({ onSelect, reset }) => {
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
-          className="flex justify-start gap-2 h-[54px] w-full rounded-2xl border border-input bg-background px-8 py-2 text-base  "
+          className="flex justify-start gap-2 h-[54px] w-full rounded-2xl border border-input bg-background px-4 py-2 text-base  "
         >
           <CalendarCheckIcon className=" text-muted-foreground" size={20} />
           {date ? (
@@ -237,13 +237,13 @@ const CreateComplaint = ({ userName }) => {
                 className="rounded-2xl  text-base font-semibold  px-4 "
               />
               <User
-                className="absolute right-6 text-muted-foreground"
+                className="absolute right-2 sm:right-6 text-muted-foreground"
                 size={20}
               />
             </div>
             <div className=" flex relative items-center w-full">
               <select
-                className="appearance-none w-full text-base text-muted-foreground rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-8"
+                className="appearance-none w-full text-base text-muted-foreground rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-4"
                 name="gender"
                 value={formData.gender}
                 onChange={handleChange}
@@ -327,13 +327,13 @@ const CreateComplaint = ({ userName }) => {
           </div>
           <div className=" flex w-full  relative items-center">
             <select
-              className="appearance-none w-full text-base text-muted-foreground  rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-8"
+              className="appearance-none w-full text-base text-muted-foreground  rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-4"
               name="IdCardStatus"
               value={formData.IdCardStatus}
               onChange={handleChange}
             >
               <option value="" disabled hidden>
-                Select ID Status
+                ID Status
               </option>
               <option className="" value="Taken">
                 ID Taken
