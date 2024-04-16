@@ -78,14 +78,14 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen mx-auto">
       {loading && (
         <div className="w-full h-full flex justify-center items-center absolute bg-white z-50">
           <BallTriangle height={100} width={100} color="#C5D4EA" />
         </div>
       )}
       {/* img div */}
-      <div className="flex flex-row-reverse justify-between w-full px-3">
+      <div className="flex flex-row-reverse gap-4 justify-between w-full px-3">
         <div className="flex items-center  ">
           <Link href="/login">
             <Image
@@ -116,7 +116,7 @@ const LoginForm = () => {
         </div>
       </div>
       <div className="h-3 w-full bg-primary"></div>
-      <div className="w-full flex justify-center items-center my-auto">
+      <div className="w-full flex justify-center items-center my-auto px-3">
         <form
           onSubmit={handleSubmit}
           className="gap-4 flex flex-col min-w-lg items-center justify-center rounded-3xl shadow-2xl px-16 py-20 bg-primary "

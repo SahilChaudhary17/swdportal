@@ -22,10 +22,22 @@ const Navbar = ({ setActive, search, setSearch, token }) => {
 
   return (
     <div className="flex md:flex-row items-center gap-6 font-sans">
-      <div className="relative flex flex-1 items-center ">
+      <div className="relative flex flex-1 sm:hidden items-center ">
         <Input
           id="Search"
-          className="rounded-3xl text-base font-semibold px-4 flex-1 max-w-full pr-12 placeholder:hidden"
+          className="rounded-3xl text-base font-semibold px-4 flex-1 max-w-full pr-12 "
+          type="text"
+          name="regNumber"
+          placeholder="Reg. Number"
+          value={search}
+          onChange={(e) => handleSearch(e)}
+        />
+        <Search size={25} className="absolute right-4 text-muted-foreground" />
+      </div>
+      <div className="relative hidden sm:flex flex-1 items-center ">
+        <Input
+          id="Search"
+          className="rounded-3xl text-base font-semibold px-4 flex-1 max-w-full pr-12 "
           type="text"
           name="regNumber"
           placeholder="Search by Registration Number"

@@ -36,7 +36,7 @@ const Complaints = ({ search }) => {
 
   return (
     <>
-    <div>
+    <div className="mb-4">
       <HeadingCard heading={"View existing complaints"} />
       {selectedComplaint ? (
         <Student

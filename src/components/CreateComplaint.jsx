@@ -274,7 +274,7 @@ const CreateComplaint = ({ userName }) => {
           </div>
           <div className="relative flex items-center ">
             <Input
-              type="Number"
+              type="tel"
               name="studentMobileNo"
               placeholder="Mobile Number"
               value={formData.studentMobileNo}

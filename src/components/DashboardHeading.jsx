@@ -6,18 +6,17 @@ import CountUp from "react-countup/build";
 const Card = ({ name, data }) => {
   return (
     <div className="flex flex-col p-4 md:p-4 lg:p-6 items-center bg-primary rounded-[50px] w-full">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Train+One&display=swap"
-      rel="stylesheet"
-    />
-    <div className="mt-4 text-xl md:text-2xl lg:text-3xl  text-zinc-300 train-one-regular">
-      <CountUp end={data} delay={0.5} duration={1} />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Train+One&display=swap"
+        rel="stylesheet"
+      />
+      <div className="mt-4 text-xl md:text-2xl lg:text-3xl  text-zinc-300 train-one-regular">
+        <CountUp end={data} delay={0.5} duration={1} />
+      </div>
+      <div className="mt-6 md:mt-5 w-full text-center py-4 text-sm md:text-base lg:text-base xl:text-lg 2xl:text-xl bg-zinc-300 rounded-[40px] text-slate-700 break-normal">
+        {name}
+      </div>
     </div>
-    <div className="mt-6 md:mt-5 w-full text-center py-4 text-lg md:text-base lg:text-base xl:text-lg 2xl:text-xl bg-zinc-300 rounded-[40px] text-slate-700">
-      {name}
-    </div>
-  </div>
-  
   );
 };
 
@@ -76,10 +75,10 @@ const DashboardHeading = ({ userName }) => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col gap-2 md:gap-3 lg:gap-6">
       <div className="relative flex ">
         {/* Image */}
-        <div className="absolute w-1/3 inset-y-0 right-0  z-10 mr-10   max-xl:hidden">
+        <div className="absolute w-1/3 inset-y-0 right-0  z-10  mr-auto   max-xl:hidden">
           <img
             loading="lazy"
             src="/new_img.png"
@@ -112,7 +111,7 @@ const DashboardHeading = ({ userName }) => {
         </div>
       </div>
 
-      <div className="flex w-full flex-col lg:flex-row mt-6 gap-8 justify-between">
+      <div className="flex w-full flex-col sm:flex-row gap-2 md:gap-5 lg:gap-8 justify-between">
         <Card name={"Total Complaint"} data={`${task.totalComplaints}`} />
         <Card name={"Pending Complaint"} data={`${task.PendingComplaints}`} />
         <Card name={"Resolved Complaint"} data={`${task.ResolvedComplaints}`} />
