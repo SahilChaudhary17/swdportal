@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import { format } from "date-fns";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -34,17 +33,24 @@ export const DatePicker = ({ onSelect, reset }) => {
     }
   }, [reset]);
 
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${month}/${day}/${year}`;
+  };
+
   return (
-    <Popover className=" ">
+    <Popover className="">
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
-          className="flex justify-start gap-2 h-[54px] w-full rounded-2xl border border-input bg-background px-4 py-2 text-base  "
+          className="flex justify-start gap-2 h-[54px] w-full rounded-2xl border border-input bg-background px-4 py-2 text-base "
         >
           <CalendarCheckIcon className=" text-muted-foreground" size={20} />
           {date ? (
             <span className="text-primary dark:text-white">
-              {format(date, "PPP")}
+              {formatDate(date)}
             </span>
           ) : (
             <span className="text-muted-foreground">Pick a date</span>
