@@ -32,7 +32,7 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
     facultyName: selectedComplaint.facultyName,
     dateTime: selectedComplaint.dateTime,
     status: selectedComplaint.status,
-    IdCardStatus: selectedComplaint.IdCardStatus,
+    IdCardStatus: selectedComplaint.idCardStatus,
     remark: selectedComplaint.remark,
     modifiedBy: decodedToken.name,
   });
@@ -225,7 +225,7 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
             />
           </div>
           <div className=" flex w-full relative items-center">
-            <select
+            {/* <select
               className="appearance-none w-full text-base text-muted-foreground  rounded-2xl flex h-[54px]  bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold  disabled:opacity-50 py-2 px-8"
               name="IdCardStatus"
               value={formData.IdCardStatus}
@@ -234,10 +234,32 @@ const ModifyForm = ({ selectedComplaint, onBack }) => {
               <option value="" disabled hidden>
                 Select ID Status
               </option>
-              <option className="" value="Taken">
+              <option value="Taken">
                 ID Taken
               </option>
               <option value="Returned Back">ID Returned Back</option>
+            </select> */}
+            <select
+              className="appearance-none w-full text-base text-muted-foreground rounded-2xl flex h-[54px] bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-input border font-semibold disabled:opacity-50 py-2 px-8"
+              name="IdCardStatus"
+              value={formData.IdCardStatus}
+              onChange={handleChange}
+            >
+              <option value="" disabled={formData.IdCardStatus !== ""}>
+                Select ID Status
+              </option>
+              <option
+                value="Taken"
+                disabled={formData.IdCardStatus === "Taken"}
+              >
+                ID Taken
+              </option>
+              <option
+                value="Returned Back"
+                disabled={formData.IdCardStatus === "Returned Back"}
+              >
+                ID Returned Back
+              </option>
             </select>
           </div>
         </div>
